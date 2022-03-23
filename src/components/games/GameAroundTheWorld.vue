@@ -51,12 +51,10 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
+import store from "@/store";
 
 export default class GameAroundTheWorld extends Vue {
-    players: IPlayer[] = [
-        { name: "Lebron James", points: 0 },
-        { name: "Kevin Durant", points: 0 },
-    ];
+    players: IPlayer[] = [...store.state.players];
     currentPlayer: IPlayer = this.players[0];
     missCounter = 0;
     gameEnds = false;

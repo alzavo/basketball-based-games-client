@@ -23,6 +23,11 @@
                 <td>
                     <button v-on:click="missBucket($event)">Miss</button>
                     <button v-on:click="madeBucket($event)">Bucket</button>
+                    <button
+                        v-on:click="this.$router.push({ name: 'add-players' })"
+                    >
+                        menu
+                    </button>
                 </td>
             </tr>
         </table>
@@ -40,14 +45,10 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
+import store from "@/store";
 
 export default class GameMinus5 extends Vue {
-    players: IPlayer[] = [
-        { name: "Lebron James", points: 0 },
-        { name: "Kevin Durant", points: 0 },
-        { name: "Kyrie Irving", points: 0 },
-        { name: "Stephen Curry", points: 0 },
-    ];
+    players: IPlayer[] = [...store.state.players];
     currentPlayer: IPlayer = this.players[0];
     deathCircleCount = 0;
     gameEnds = false;

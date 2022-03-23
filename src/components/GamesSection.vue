@@ -9,10 +9,14 @@
                 <tr>
                     <td>{{ name }}</td>
                     <td>
-                        <button v-on:click="playClicked($event, name)">
+                        <button
+                            v-on:click="
+                                handleClick($event, 'add-players', name)
+                            "
+                        >
                             Play
                         </button>
-                        <button v-on:click="rulesClicked($event, name)">
+                        <button v-on:click="handleClick($event, 'rules', name)">
                             Rules
                         </button>
                     </td>
@@ -24,30 +28,24 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
+import router from "@/router/index";
+import store from "@/store/index";
+import { SET_GAME } from "@/store/MutationTypes";
 
 export default class GameSection extends Vue {
     columnsNames: string[] = ["Game", "Actions"];
     gamesNames: string[] = ["Around the world", "33", "21", "-5"];
 
-    rulesClicked(event: Event, name: string): void {
+    handleClick(event: Event, routeName: string, game: string): void {
         event.preventDefault();
-        this.$router.push({
-            name: "rules",
-            params: { game: name },
-        });
-    }
-
-    playClicked(event: Event): void {
-        // change state in store about game
-        event.preventDefault();
-        this.$router.push({
-            name: "add-players",
+        store.commit(SET_GAME, game);
+        router.push({
+            name: routeName,
         });
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 table,
 th,

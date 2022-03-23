@@ -5,11 +5,15 @@
                 <td><h1>Game: 33</h1></td>
             </tr>
             <tr>
-                <td>{{ createShotMessage() }}</td>
+                <td>{{ this.currentPlayer.name + " makes shot" }}</td>
             </tr>
             <tr>
                 <td>
-                    {{ createPointsMessage() }}
+                    {{
+                        this.currentPlayer.name +
+                        " points: " +
+                        this.currentPlayer.points
+                    }}
                 </td>
             </tr>
             <tr>
@@ -23,7 +27,8 @@
         <table v-if="gameEnds" class="center">
             <tr>
                 <td>
-                    {{ createGameEndMessage() }}
+                    {{ this.currentPlayer.name + " WINS THE GAME!" }}
+                    <router-link to="/">Home</router-link>
                 </td>
             </tr>
         </table>
@@ -33,13 +38,11 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
+import store from "@/store";
+import { SET_PLAYERS_INITIAL_STATE } from "@/store/MutationTypes";
 
 export default class Game33 extends Vue {
-    players: IPlayer[] = [
-        { name: "Player1", points: 0 },
-        { name: "Player2", points: 0 },
-    ];
-    currentPlayer: IPlayer = this.players[0];
+    currentPlayer: IPlayer = store.state.players[0];
     gameEnds = false;
 
     addPoints(event: Event): void {
@@ -50,32 +53,22 @@ export default class Game33 extends Vue {
             this.currentPlayer.points += 1;
             if (this.currentPlayer.points === 33) {
                 this.gameEnds = true;
+                store.commit(SET_PLAYERS_INITIAL_STATE);
+                console.log(store.state);
             }
         }
     }
 
     changePlayers(event: Event): void {
         event.preventDefault();
-        let currentPlayerIndex = this.players.indexOf(this.currentPlayer);
-        if (currentPlayerIndex === this.players.length - 1) {
-            this.currentPlayer = this.players[0];
-        } else {
-            this.currentPlayer = this.players[++currentPlayerIndex];
-        }
-    }
-
-    createPointsMessage(): string {
-        return (
-            this.currentPlayer.name + " points: " + this.currentPlayer.points
+        let currentPlayerIndex = store.state.players.indexOf(
+            this.currentPlayer
         );
-    }
-
-    createShotMessage(): string {
-        return this.currentPlayer.name + " makes shot";
-    }
-
-    createGameEndMessage(): string {
-        return this.currentPlayer.name + " WINS THE GAME!";
+        if (currentPlayerIndex === store.state.players.length - 1) {
+            this.currentPlayer = store.state.players[0];
+        } else {
+            this.currentPlayer = store.state.players[++currentPlayerIndex];
+        }
     }
 }
 </script>

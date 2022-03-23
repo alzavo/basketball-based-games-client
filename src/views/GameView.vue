@@ -1,14 +1,17 @@
 <template>
     <!-- choose which game to render by state in store -->
 
-    <Game33 />
-    <GameMinus5 />
-    <Game21 />
-    <GameAroundTheWorld />
+    <Game33 v-if="this.$store.state.gameName === '33'" />
+    <GameMinus5 v-if="this.$store.state.gameName === '-5'" />
+    <Game21 v-if="this.$store.state.gameName === '21'" />
+    <GameAroundTheWorld
+        v-if="this.$store.state.gameName === 'Around the world'"
+    />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+
 import Game33 from "@/components/games/Game33.vue";
 import GameMinus5 from "@/components/games/GameMinus5.vue";
 import Game21 from "@/components/games/Game21.vue";
