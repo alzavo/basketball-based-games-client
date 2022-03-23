@@ -1,15 +1,10 @@
 <template>
-    <!-- done -->
-    <!-- <Game33 /> -->
+    <!-- choose which game to render by state in store -->
 
-    <!-- done -->
-    <!-- <GameMinus5 /> -->
-
-    <!-- not done -->
+    <Game33 />
+    <GameMinus5 />
     <Game21 />
-
-    <!-- not done -->
-    <!-- <GameAroundTheWorld /> -->
+    <GameAroundTheWorld />
 </template>
 
 <script lang="ts">

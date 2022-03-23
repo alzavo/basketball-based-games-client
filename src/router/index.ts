@@ -18,10 +18,9 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-        path: "/rules/:game",
+        path: "/rules",
         name: "rules",
         component: () => import("../views/RulesView.vue"),
-        props: true,
     },
 
     {

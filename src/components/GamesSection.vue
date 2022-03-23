@@ -37,7 +37,7 @@ export default class GameSection extends Vue {
         });
     }
 
-    playClicked(event: Event, name: string): void {
+    playClicked(event: Event): void {
         // change state in store about game
         event.preventDefault();
         this.$router.push({

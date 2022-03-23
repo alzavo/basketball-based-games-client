@@ -18,7 +18,10 @@
                     <button v-on:click="addPoints($event, 1)">
                         Add 1 point
                     </button>
-                    <button v-on:click="addPoints($event, 2)">
+                    <button
+                        v-if="currentPlayer.points < 20"
+                        v-on:click="addPoints($event, 2)"
+                    >
                         Add 2 points
                     </button>
                 </td>

@@ -3,14 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
 
-@Options({
-    props: {
-        game: String,
-    },
-})
-export default class RulesView extends Vue {
-    game!: string;
-}
+export default class RulesView extends Vue {}
 </script>
