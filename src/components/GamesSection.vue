@@ -1,42 +1,46 @@
 <template>
-    <div>
-        <table class="center" style="width: 50%">
-            <tr>
-                <th v-for="name in columnsNames" :key="name">{{ name }}</th>
-            </tr>
-
-            <template v-for="name in gamesNames" :key="name">
-                <tr>
-                    <td>{{ name }}</td>
-                    <td>
-                        <button
-                            v-on:click="
-                                handleClick($event, 'add-players', name)
-                            "
-                        >
-                            Play
-                        </button>
-                        <button v-on:click="handleClick($event, 'rules', name)">
-                            Rules
-                        </button>
-                    </td>
-                </tr>
-            </template>
-        </table>
-    </div>
+    <section class="games-home">
+        <div class="games-list">
+            <div class="list-title">Basketball based games</div>
+            <hr />
+            <div v-for="game in games" :key="game" class="game-item">
+                <div class="game-name">
+                    <p>{{ game.name }}</p>
+                </div>
+                <div class="actions-list">
+                    <button
+                        v-on:click="handleClick($event, 'rules', game)"
+                        class="button rules-button"
+                    >
+                        Rules
+                    </button>
+                    <button
+                        v-on:click="handleClick($event, 'add-players', game)"
+                        class="button play-button"
+                    >
+                        Play
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import router from "@/router/index";
 import store from "@/store/index";
-import { SET_GAME } from "@/store/MutationTypes";
+import { SET_GAME, SET_INITIAL_STATE } from "@/store/MutationTypes";
+import { IGame } from "@/interfaces/IGame";
 
 export default class GameSection extends Vue {
-    columnsNames: string[] = ["Game", "Actions"];
-    gamesNames: string[] = ["Around the world", "33", "21", "-5"];
+    games: IGame[] = store.state.games;
 
-    handleClick(event: Event, routeName: string, game: string): void {
+    beforeCreate() {
+        store.commit(SET_INITIAL_STATE);
+    }
+
+    handleClick(event: Event, routeName: string, game: IGame): void {
         event.preventDefault();
         store.commit(SET_GAME, game);
         router.push({
@@ -45,25 +49,3 @@ export default class GameSection extends Vue {
     }
 }
 </script>
-
-<style scoped>
-table,
-th,
-td {
-    border: 1px solid black;
-}
-
-td {
-    text-align: center;
-}
-
-.center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-</style>

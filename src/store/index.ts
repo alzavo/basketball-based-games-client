@@ -1,23 +1,24 @@
-import { IAppState } from "@/interfaces/IAppState";
-import { IPlayer } from "@/interfaces/IPlayer";
 import { createStore } from "vuex";
+
+import { IPlayer } from "@/interfaces/IPlayer";
+import { State } from "./InitialState";
 
 import {
     ADD_PLAYER,
     REMOVE_PLAYER,
     SET_GAME,
-    SET_PLAYERS_INITIAL_STATE,
+    SET_INITIAL_STATE,
 } from "./MutationTypes";
-
-export const state: IAppState = {
-    gameName: "",
-    players: [],
-};
+import { IGame } from "@/interfaces/IGame";
 
 export default createStore({
-    state: state,
+    state: State,
 
-    getters: {},
+    getters: {
+        getChosenGame: (state) => () => {
+            return state.games.find((game) => game.isChosen);
+        },
+    },
 
     mutations: {
         [ADD_PLAYER](state, player: IPlayer) {
@@ -28,11 +29,18 @@ export default createStore({
             state.players.splice(index, 1);
         },
 
-        [SET_GAME](state, game: string) {
-            state.gameName = game;
+        [SET_GAME](state, selectedGame: IGame) {
+            state.games.find((game) => {
+                if (game.name === selectedGame.name) {
+                    game.isChosen = true;
+                }
+            });
         },
 
-        [SET_PLAYERS_INITIAL_STATE](state) {
+        [SET_INITIAL_STATE](state) {
+            state.games.forEach((game) => {
+                game.isChosen = false;
+            });
             state.players.forEach((player) => {
                 player.points = 0;
                 player.allotedShot = 1;

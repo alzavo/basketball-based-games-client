@@ -16,3 +16,15 @@
     filter: brightness(120%);
     box-shadow: 4px 2px 5px #000;
 }
+
+.play-button {
+    background-color: $play-button-color;
+}
+
+.rules-button {
+    background-color: $rules-button-color;
+}
+
+.back-button {
+    background-color: $back-button-color;
+}

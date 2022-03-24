@@ -1,11 +1,11 @@
 <template>
     <!-- choose which game to render by state in store -->
 
-    <Game33 v-if="this.$store.state.gameName === '33'" />
-    <GameMinus5 v-if="this.$store.state.gameName === '-5'" />
-    <Game21 v-if="this.$store.state.gameName === '21'" />
+    <Game33 v-if="this.$store.getters.getChosenGame().name === '33'" />
+    <GameMinus5 v-if="this.$store.getters.getChosenGame().name === '-5'" />
+    <Game21 v-if="this.$store.getters.getChosenGame().name === '21'" />
     <GameAroundTheWorld
-        v-if="this.$store.state.gameName === 'Around the world'"
+        v-if="this.$store.getters.getChosenGame().name === 'Around the world'"
     />
 </template>
 
@@ -27,6 +27,3 @@ import GameAroundTheWorld from "@/components/games/GameAroundTheWorld.vue";
 })
 export default class GameView extends Vue {}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>

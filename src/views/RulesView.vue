@@ -1,17 +1,39 @@
 <template>
-    <RulesAroundTheWorld />
+    <section class="game-rules">
+        <div class="general-info">
+            <div class="name">
+                <h1>{{ game.name }}</h1>
+            </div>
+            <hr />
+            <div class="rules">{{ game.description }}</div>
+        </div>
+    </section>
+    <section class="nav">
+        <div class="nav-actions">
+            <button v-on:click="this.$router.go(-1)" class="button back-button">
+                Back
+            </button>
+            <button
+                v-on:click="this.$router.push({ name: 'add-players' })"
+                class="button play-button"
+            >
+                Play
+            </button>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
-import RulesAroundTheWorld from "@/components/rules/RulesAroundTheWorld.vue";
 import { Options, Vue } from "vue-class-component";
+import store from "@/store/index";
+import { IGame } from "@/interfaces/IGame";
 
 @Options({
-    components: {
-        RulesAroundTheWorld,
-    },
+    components: {},
 })
-export default class RulesView extends Vue {}
+export default class RulesView extends Vue {
+    game: IGame = store.getters.getChosenGame();
+}
 </script>
 
 <style scoped></style>

@@ -42,7 +42,6 @@
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import store from "@/store";
-import { SET_PLAYERS_INITIAL_STATE } from "@/store/MutationTypes";
 
 export default class Game21 extends Vue {
     players: IPlayer[] = [...store.state.players];
@@ -53,8 +52,7 @@ export default class Game21 extends Vue {
         event.preventDefault();
         this.currentPlayer.points += points;
         if (this.currentPlayer.points === 21) {
-            store.commit(SET_PLAYERS_INITIAL_STATE);
-            console.log(store.state);
+            this.gameEnds = true;
         }
     }
 

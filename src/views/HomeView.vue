@@ -1,6 +1,5 @@
 <template>
     <div>
-        <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
         <GamesSection />
     </div>
 </template>

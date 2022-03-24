@@ -2,7 +2,14 @@
     <section class="game-info">
         <div class="general-info">
             <div v-if="gameEnds" class="winner-label">Winner</div>
-            <button v-if="!gameEnds" class="button">Rules</button>
+            <button v-if="!gameEnds" class="button">Standings</button>
+            <button
+                v-if="!gameEnds"
+                v-on:click="this.$router.push({ name: 'rules' })"
+                class="button rules-button"
+            >
+                Rules
+            </button>
         </div>
         <hr />
         <div class="player-info">
@@ -38,7 +45,7 @@
             <div v-if="gameEnds" class="out-game-actions">
                 <button
                     class="button home-button"
-                    v-on:click="goToHome($event)"
+                    v-on:click="this.$router.push({ name: 'home' })"
                 >
                     Home
                 </button>
@@ -51,7 +58,6 @@
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import store from "@/store/index";
-import router from "@/router/index";
 
 export default class Game33 extends Vue {
     currentPlayer: IPlayer = store.state.players[0];
@@ -79,11 +85,6 @@ export default class Game33 extends Vue {
         } else {
             this.currentPlayer = store.state.players[++currentPlayerIndex];
         }
-    }
-
-    goToHome(event: Event): void {
-        event.preventDefault();
-        router.push({ name: "home" });
     }
 }
 </script>
