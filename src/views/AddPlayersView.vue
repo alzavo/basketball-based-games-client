@@ -1,87 +1,55 @@
 <template>
     <section class="new-player-entry">
-        <form id="new-player-form" action="">
-            <label for="new-player"> Enter new player name</label>
+        <div id="new-player-form">
             <input
                 id="new-player"
                 type="text"
-                size="40"
                 autocomplete="off"
                 placeholder="Add player"
-                tabindex="0"
+                v-model="this.newPlayerName"
             />
             <button
                 id="add-player"
                 class="button"
-                title="Add new player"
-                aria-label="Add new player to list"
-                tabindex="0"
+                v-on:click="addPlayer($event)"
             >
                 +
             </button>
-        </form>
+        </div>
     </section>
 
     <section class="list-container">
         <div class="list-title">
-            <h1>Players list</h1>
+            <h1>Players</h1>
+            <button class="button" v-on:click="startGame($event)">Play</button>
         </div>
         <hr />
         <div id="list-items">
-            <div class="item">
-                <p>Kyrie Irving</p>
+            <div
+                class="item"
+                v-for="(player, index) in this.$store.state.players"
+                :key="player"
+            >
+                <p>{{ player.name }}</p>
                 <button
                     id="remove-item"
                     class="button"
                     title="Remove the item"
                     aria-label="Remove the item from the list"
                     tabindex="0"
+                    v-on:click="removePlayer($event, index)"
                 >
-                    Remove
-                </button>
-            </div>
-            <div class="item">
-                <p>James Harden</p>
-                <button
-                    id="remove-item"
-                    class="button"
-                    title="Remove the item"
-                    aria-label="Remove the item from the list"
-                    tabindex="0"
-                >
-                    Remove
+                    -
                 </button>
             </div>
         </div>
     </section>
-
-    <div class="wrapper center">
-        <div class="column">
-            <div
-                v-for="(player, index) in this.$store.state.players"
-                :key="player"
-            >
-                {{ player.name }}
-                <button v-on:click="removePlayer($event, index)">Remove</button>
-            </div>
-        </div>
-        <div>
-            <input
-                type="text"
-                placeholder="Enter player's name"
-                v-model="this.newPlayerName"
-            />
-            <button v-on:click="addPlayer($event)">Add player</button>
-        </div>
-    </div>
-    <div>
-        <router-link to="/game">Start game</router-link>
-    </div>
 </template>
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import store from "@/store/index";
+import router from "@/router/index";
 import { ADD_PLAYER, REMOVE_PLAYER } from "@/store/MutationTypes";
 import { IPlayer } from "@/interfaces/IPlayer";
 
@@ -98,6 +66,11 @@ export default class AddPlayersView extends Vue {
         store.commit(REMOVE_PLAYER, index);
     }
 
+    startGame(event: Event): void {
+        event.preventDefault();
+        router.push({ name: "game" });
+    }
+
     createPlayer(): IPlayer {
         let player: IPlayer = {
             name: this.newPlayerName,
@@ -109,5 +82,3 @@ export default class AddPlayersView extends Vue {
     }
 }
 </script>
-
-<style lang="scss" scoped></style>

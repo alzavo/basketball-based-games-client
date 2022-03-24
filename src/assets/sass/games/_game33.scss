@@ -1,0 +1,90 @@
+.game-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+
+    .general-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        button {
+            background-color: $rules-button-color;
+            width: 7rem;
+            font-size: 1.25rem;
+            padding: 0.75rem;
+            @include mq(768) {
+                font-size: 1.5rem;
+            }
+        }
+
+        .winner-label {
+            font-size: 3rem;
+        }
+    }
+
+    .winner-info {
+        display: flex;
+    }
+
+    hr {
+        margin: 0.5rem 0.5rem;
+    }
+
+    .player-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        font-size: 1.25rem;
+        margin-bottom: 0.2rem;
+
+        .player-name, .player-points {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-name, .column-data {
+            display: flex;
+            justify-content: center;
+        }
+
+        .column-data {
+            font-style: bold;
+        }
+    }
+}
+
+.game-actions {
+    margin-top: 1rem;
+
+    .game-actions-choice {
+
+        .in-game-actions, .out-game-actions {
+            display: flex;
+        }
+
+        .in-game-actions {
+            justify-content: space-between;
+        }
+
+        .out-game-actions {
+            justify-content: center;
+        }
+
+        button {
+            width: 6rem;
+        }
+
+        .miss-button {
+            background-color: $miss-button-color;
+        }
+
+        .made-button {
+            background-color: $made-button-color;
+        }
+
+        .home-button {
+            background-color: $home-button-color;
+        }
+    }
+}

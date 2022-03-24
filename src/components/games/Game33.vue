@@ -1,45 +1,57 @@
 <template>
-    <div>
-        <table class="center" v-if="!gameEnds">
-            <tr>
-                <td><h1>Game: 33</h1></td>
-            </tr>
-            <tr>
-                <td>{{ this.currentPlayer.name + " makes shot" }}</td>
-            </tr>
-            <tr>
-                <td>
-                    {{
-                        this.currentPlayer.name +
-                        " points: " +
-                        this.currentPlayer.points
-                    }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button v-on:click="changePlayers($event)">Miss</button>
-                    <button v-on:click="addPoints($event)">Bucket</button>
-                </td>
-            </tr>
-        </table>
+    <section class="game-info">
+        <div class="general-info">
+            <div v-if="gameEnds" class="winner-label">Winner</div>
+            <button v-if="!gameEnds" class="button">Rules</button>
+        </div>
+        <hr />
+        <div class="player-info">
+            <div class="player-name">
+                <div class="column-name">Player</div>
+                <hr />
+                <div class="column-data">{{ this.currentPlayer.name }}</div>
+            </div>
+            <div class="player-points">
+                <div class="column-name">Points</div>
+                <hr />
+                <div class="column-data">{{ this.currentPlayer.points }}</div>
+            </div>
+        </div>
+    </section>
 
-        <table v-if="gameEnds" class="center">
-            <tr>
-                <td>
-                    {{ this.currentPlayer.name + " WINS THE GAME!" }}
-                    <router-link to="/">Home</router-link>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <section class="game-actions">
+        <div class="game-actions-choice">
+            <div v-if="!gameEnds" class="in-game-actions">
+                <button
+                    class="button miss-button"
+                    v-on:click="changePlayers($event)"
+                >
+                    Miss
+                </button>
+                <button
+                    class="button made-button"
+                    v-on:click="addPoints($event)"
+                >
+                    Made
+                </button>
+            </div>
+            <div v-if="gameEnds" class="out-game-actions">
+                <button
+                    class="button home-button"
+                    v-on:click="goToHome($event)"
+                >
+                    Home
+                </button>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
-import store from "@/store";
-import { SET_PLAYERS_INITIAL_STATE } from "@/store/MutationTypes";
+import store from "@/store/index";
+import router from "@/router/index";
 
 export default class Game33 extends Vue {
     currentPlayer: IPlayer = store.state.players[0];
@@ -53,8 +65,6 @@ export default class Game33 extends Vue {
             this.currentPlayer.points += 1;
             if (this.currentPlayer.points === 33) {
                 this.gameEnds = true;
-                store.commit(SET_PLAYERS_INITIAL_STATE);
-                console.log(store.state);
             }
         }
     }
@@ -70,28 +80,10 @@ export default class Game33 extends Vue {
             this.currentPlayer = store.state.players[++currentPlayerIndex];
         }
     }
+
+    goToHome(event: Event): void {
+        event.preventDefault();
+        router.push({ name: "home" });
+    }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div {
-    border: 1px solid black;
-}
-
-table,
-th,
-td {
-    border: 1px solid black;
-}
-
-.center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-</style>
