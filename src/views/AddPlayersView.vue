@@ -21,7 +21,20 @@
     <section class="list-container">
         <div class="list-title">
             <h1>Players</h1>
-            <button class="button" v-on:click="startGame($event)">Play</button>
+            <div class="buttons-group">
+                <button
+                    v-on:click="this.$router.go(-1)"
+                    class="button back-button"
+                >
+                    Back
+                </button>
+                <button
+                    class="button play-button"
+                    v-on:click="startGame($event)"
+                >
+                    Play
+                </button>
+            </div>
         </div>
         <hr />
         <div id="list-items">

@@ -1,3 +1,38 @@
+.new-player-entry {
+    position: sticky;
+    top: 0;
+    margin-bottom: 1 rem;
+    padding: 0.75rem;
+
+    #new-player-form {
+        display: flex;
+        justify-content: space-between;
+
+        input[type="text"] {
+            width: 80%;
+            font-size: 1.25rem;
+            border: 2px solid $textbox-border-color;
+            border-radius: 10px;
+            padding: 0.75rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus, 
+        input[type="text"]:hover {
+            box-shadow: 4px 2px 5px #000;
+        }
+
+        button {
+            font-size: 1.25rem;
+            background-color: $success-color;
+            padding: 0.75rem;
+            @include mq(768) {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
+
 .list-container {
     min-height: 60vh;
     padding: 0.75rem;
@@ -9,7 +44,6 @@
         align-items: flex-end;
 
         button {
-            background-color: $add-button-color;
             text-align: center;
             width: 2.5rem;
             min-width: 48px;
@@ -28,7 +62,7 @@
         align-items: center;
         padding-top: 1rem;
         flex-wrap: wrap;
-        white-space:nowrap;
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
@@ -37,7 +71,7 @@
         }
 
         button {
-            background-color: $remove-button-color;
+            background-color: $danger-color;
             text-align: center;
             font-size: 1.7rem;
             width: 2.5rem;

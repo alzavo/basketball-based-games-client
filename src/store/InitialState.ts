@@ -33,4 +33,9 @@ export const GameAroundTheWorld: IGame = {
 export const State: IAppState = {
     players: [],
     games: [Game21, Game33, GameMinus5, GameAroundTheWorld],
+    gameStatus: {
+        gameGoes: true,
+        gameStops: false,
+        gameEnds: false,
+    },
 };

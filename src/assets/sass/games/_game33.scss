@@ -9,11 +9,9 @@
         justify-content: center;
 
         button {
-            background-color: $rules-button-color;
-            width: 7rem;
-            font-size: 1.25rem;
+            width: 5rem;
+            font-size: 1rem;
             margin: auto;
-            padding: 0.75rem;
             @include mq(768) {
                 font-size: 1.5rem;
             }
@@ -75,17 +73,57 @@
         button {
             width: 6rem;
         }
+    }
+}
 
-        .miss-button {
-            background-color: $miss-button-color;
-        }
+// <section class="game-results">
+// <div class="title"><h1>Results</h1></div>
+// <div class="list">
+//     <div class="item">
+//         <hr />
+//         <div class="place">1</div>
+//         <div class="player">Frodo</div>
+//         <div class="points">33</div>
+//         <hr />
+//     </div>
+// </div>
+// </section>
 
-        .made-button {
-            background-color: $made-button-color;
-        }
+.game-results {
+    margin-top: 1rem;
+    padding: 0.3rem;
 
-        .home-button {
-            background-color: $home-button-color;
+    .title {
+        display: flex;
+        justify-content: center;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+        text-align: center;
+    }
+
+    tr {
+        .place {
+            width: 4rem;
         }
+    
+        .points {
+            width: 5rem;
+        }
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
     }
 }

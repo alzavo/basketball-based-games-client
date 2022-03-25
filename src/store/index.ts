@@ -6,8 +6,11 @@ import { State } from "./InitialState";
 import {
     ADD_PLAYER,
     REMOVE_PLAYER,
+    REMOVE_POINTS_FROM_PLAYERS,
     SET_GAME,
-    SET_INITIAL_STATE,
+    SET_STATUS_GAME_ENDS,
+    SET_STATUS_GAME_GOES,
+    SET_STATUS_GAME_STOPS,
 } from "./MutationTypes";
 import { IGame } from "@/interfaces/IGame";
 
@@ -17,6 +20,18 @@ export default createStore({
     getters: {
         getChosenGame: (state) => () => {
             return state.games.find((game) => game.isChosen);
+        },
+
+        getPlayersOrderedByPoints: (state) => () => {
+            return state.players.sort(function (player1, player2) {
+                if (player1.points < player2.points) {
+                    return 1;
+                }
+                if (player1.points > player2.points) {
+                    return -1;
+                }
+                return 0;
+            });
         },
     },
 
@@ -37,10 +52,25 @@ export default createStore({
             });
         },
 
-        [SET_INITIAL_STATE](state) {
-            state.games.forEach((game) => {
-                game.isChosen = false;
-            });
+        [SET_STATUS_GAME_GOES](state) {
+            state.gameStatus.gameGoes = true;
+            state.gameStatus.gameStops = false;
+            state.gameStatus.gameEnds = false;
+        },
+
+        [SET_STATUS_GAME_STOPS](state) {
+            state.gameStatus.gameGoes = false;
+            state.gameStatus.gameStops = true;
+            state.gameStatus.gameEnds = false;
+        },
+
+        [SET_STATUS_GAME_ENDS](state) {
+            state.gameStatus.gameGoes = false;
+            state.gameStatus.gameStops = false;
+            state.gameStatus.gameEnds = true;
+        },
+
+        [REMOVE_POINTS_FROM_PLAYERS](state) {
             state.players.forEach((player) => {
                 player.points = 0;
                 player.allotedShot = 1;
