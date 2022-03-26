@@ -1,60 +1,50 @@
 <template>
+    <section v-if="message" class="message">
+        <div>{{ messageText }}</div>
+        <div v-on:click="this.message = false" class="cross">&times;</div>
+    </section>
+
     <section class="new-player-entry">
         <div id="new-player-form">
             <input
-                id="new-player"
                 type="text"
                 autocomplete="off"
                 placeholder="Add player"
                 v-model="this.newPlayerName"
             />
-            <button
-                id="add-player"
-                class="button"
-                v-on:click="addPlayer($event)"
-            >
+            <button class="button add-button" v-on:click="addPlayer($event)">
                 +
             </button>
         </div>
     </section>
 
     <section class="list-container">
-        <div class="list-title">
-            <h1>Players</h1>
-            <div class="buttons-group">
-                <button
-                    v-on:click="this.$router.go(-1)"
-                    class="button back-button"
-                >
-                    Back
-                </button>
-                <button
-                    class="button play-button"
-                    v-on:click="startGame($event)"
-                >
-                    Play
-                </button>
-            </div>
+        <div class="buttons-group">
+            <button v-on:click="this.$router.go(-1)" class="button back-button">
+                Back
+            </button>
+            <button v-on:click="startGame($event)" class="button play-button">
+                Play
+            </button>
         </div>
-        <hr />
-        <div id="list-items">
-            <div
-                class="item"
-                v-for="(player, index) in this.$store.state.players"
-                :key="player"
-            >
-                <p>{{ player.name }}</p>
-                <button
-                    id="remove-item"
-                    class="button"
-                    title="Remove the item"
-                    aria-label="Remove the item from the list"
-                    tabindex="0"
-                    v-on:click="removePlayer($event, index)"
+
+        <div class="players-list">
+            <table>
+                <tr
+                    v-for="(player, index) in this.$store.state.players"
+                    :key="player"
                 >
-                    -
-                </button>
-            </div>
+                    <td class="player">{{ player.name }}</td>
+                    <td class="actions">
+                        <button
+                            v-on:click="removePlayer($event, index)"
+                            class="button remove-button"
+                        >
+                            -
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </section>
 </template>
@@ -67,11 +57,18 @@ import { ADD_PLAYER, REMOVE_PLAYER } from "@/store/MutationTypes";
 import { IPlayer } from "@/interfaces/IPlayer";
 
 export default class AddPlayersView extends Vue {
-    private newPlayerName = "";
+    newPlayerName = "";
+    message = false;
+    messageText = "";
 
     addPlayer(event: Event): void {
         event.preventDefault();
-        store.commit(ADD_PLAYER, this.createPlayer());
+        if (this.newPlayerName.length === 0) {
+            this.message = true;
+            this.messageText = "Name can't be empty";
+        } else {
+            store.commit(ADD_PLAYER, this.createPlayer());
+        }
     }
 
     removePlayer(event: Event, index: number): void {
@@ -81,7 +78,12 @@ export default class AddPlayersView extends Vue {
 
     startGame(event: Event): void {
         event.preventDefault();
-        router.push({ name: "game" });
+        if (store.state.players.length < 2) {
+            this.message = true;
+            this.messageText = "Minimal 2 players";
+        } else {
+            router.push({ name: "game" });
+        }
     }
 
     createPlayer(): IPlayer {

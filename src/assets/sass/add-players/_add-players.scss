@@ -1,15 +1,13 @@
 .new-player-entry {
-    position: sticky;
-    top: 0;
-    margin-bottom: 1 rem;
     padding: 0.75rem;
+    margin-top: 0.5rem;
 
     #new-player-form {
         display: flex;
         justify-content: space-between;
 
         input[type="text"] {
-            width: 80%;
+            width: 75%;
             font-size: 1.25rem;
             border: 2px solid $textbox-border-color;
             border-radius: 10px;
@@ -17,79 +15,93 @@
             outline: none;
         }
 
-        input[type="text"]:focus, 
-        input[type="text"]:hover {
-            box-shadow: 4px 2px 5px #000;
-        }
-
         button {
+            width: 15%;
             font-size: 1.25rem;
-            background-color: $success-color;
             padding: 0.75rem;
-            @include mq(768) {
-                font-size: 1.5rem;
-            }
         }
     }
 }
 
+.message {
+    padding: 0.75rem;
+    background-color: $danger-color;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cross {
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .cross:hover {
+        color: black;
+    }
+}
+
 .list-container {
-    min-height: 60vh;
-    max-height: 80vh;
     padding: 0.75rem;
     margin-top: 0.5rem;
-    overflow-y: scroll;
 
-    .list-title {
+    .buttons-group {
         display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-
-        button {
-            text-align: center;
-            width: 2.5rem;
-            min-width: 48px;
-            height: 2.5rem;
-            min-height: 48px;
-        }
-    }
-
-    hr {
-        width: 100%;
-    }
-
-    .item {
-        display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: center;
-        padding-top: 1rem;
-        flex-wrap: wrap;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        p {
-            font-size: 1.5rem;
-        }
 
         button {
-            background-color: $danger-color;
+            width: 5rem;
+        }
+    }
+
+    .players-list {
+        min-height: 30vh;
+        max-height: 60vh;
+        overflow-y: scroll;
+        margin-top: 0.5rem;
+
+        button {
+            width: 48px;
+            height: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
             text-align: center;
-            font-size: 1.7rem;
-            width: 2.5rem;
-            min-width: 48px;
-            height: 2.5rem;
-            min-height: 48px;
+        }
+    
+        tr {        
+            .actions {
+                width: 7rem;
+            }
+        }
+    
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #dddddd;
         }
     }
 }
 
-.list-container {
+.players-list {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.list-container::-webkit-scrollbar {
+.players-list::-webkit-scrollbar {
     display: none;
 }

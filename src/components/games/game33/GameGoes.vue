@@ -2,7 +2,7 @@
     <section class="game-info">
         <div class="general-info">
             <button
-                v-on:click="stopTheGame($event)"
+                v-on:click="this.$router.push({ name: 'settings' })"
                 class="button settings-button"
             >
                 Settings
@@ -45,11 +45,9 @@
 
 <script lang="ts">
 import { IPlayer } from "@/interfaces/IPlayer";
+import router from "@/router";
 import store from "@/store";
-import {
-    SET_STATUS_GAME_ENDS,
-    SET_STATUS_GAME_STOPS,
-} from "@/store/MutationTypes";
+
 import { Vue } from "vue-class-component";
 
 export default class GameGoes extends Vue {
@@ -62,7 +60,7 @@ export default class GameGoes extends Vue {
         } else if (this.currentPlayer.points >= 30) {
             this.currentPlayer.points += 1;
             if (this.currentPlayer.points === 33) {
-                store.commit(SET_STATUS_GAME_ENDS);
+                router.push({ name: "results" });
             }
         }
     }
@@ -81,7 +79,6 @@ export default class GameGoes extends Vue {
 
     stopTheGame(event: Event): void {
         event.preventDefault();
-        store.commit(SET_STATUS_GAME_STOPS);
     }
 }
 </script>

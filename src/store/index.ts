@@ -37,29 +37,15 @@ export default createStore({
         },
 
         [Mutation.SET_GAME](state, selectedGame: IGame) {
+            state.games.forEach((game) => {
+                game.isChosen = false;
+            });
+
             state.games.find((game) => {
                 if (game.name === selectedGame.name) {
                     game.isChosen = true;
                 }
             });
-        },
-
-        [Mutation.SET_STATUS_GAME_GOES](state) {
-            state.gameStatus.gameGoes = true;
-            state.gameStatus.gameStops = false;
-            state.gameStatus.gameEnds = false;
-        },
-
-        [Mutation.SET_STATUS_GAME_STOPS](state) {
-            state.gameStatus.gameGoes = false;
-            state.gameStatus.gameStops = true;
-            state.gameStatus.gameEnds = false;
-        },
-
-        [Mutation.SET_STATUS_GAME_ENDS](state) {
-            state.gameStatus.gameGoes = false;
-            state.gameStatus.gameStops = false;
-            state.gameStatus.gameEnds = true;
         },
 
         [Mutation.REMOVE_POINTS_FROM_PLAYERS](state) {

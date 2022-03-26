@@ -1,5 +1,4 @@
 export interface IGameStatus {
-    gameStops: boolean;
-    gameEnds: boolean;
-    gameGoes: boolean;
+    end: boolean;
+    inProgress: boolean;
 }

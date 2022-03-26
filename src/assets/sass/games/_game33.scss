@@ -67,63 +67,12 @@
         }
 
         .out-game-actions {
-            justify-content: center;
+            flex-direction: column;
         }
 
         button {
             width: 6rem;
+            margin: 0.5rem auto;
         }
-    }
-}
-
-// <section class="game-results">
-// <div class="title"><h1>Results</h1></div>
-// <div class="list">
-//     <div class="item">
-//         <hr />
-//         <div class="place">1</div>
-//         <div class="player">Frodo</div>
-//         <div class="points">33</div>
-//         <hr />
-//     </div>
-// </div>
-// </section>
-
-.game-results {
-    margin-top: 1rem;
-    padding: 0.3rem;
-
-    .title {
-        display: flex;
-        justify-content: center;
-    }
-    
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        table-layout: fixed;
-        text-align: center;
-    }
-
-    tr {
-        .place {
-            width: 4rem;
-        }
-    
-        .points {
-            width: 5rem;
-        }
-    }
-
-    td, th {
-        border: 1px solid #dddddd;
-        padding: 8px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    tr:nth-child(even) {
-        background-color: #dddddd;
     }
 }

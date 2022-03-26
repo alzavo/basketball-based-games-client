@@ -30,11 +30,7 @@
 import { Vue } from "vue-class-component";
 import router from "@/router/index";
 import store from "@/store/index";
-import {
-    REMOVE_POINTS_FROM_PLAYERS,
-    SET_GAME,
-    SET_STATUS_GAME_GOES,
-} from "@/store/MutationTypes";
+import { REMOVE_POINTS_FROM_PLAYERS, SET_GAME } from "@/store/MutationTypes";
 import { IGame } from "@/interfaces/IGame";
 
 export default class GameSection extends Vue {
@@ -42,7 +38,6 @@ export default class GameSection extends Vue {
 
     beforeCreate() {
         store.commit(REMOVE_POINTS_FROM_PLAYERS);
-        store.commit(SET_STATUS_GAME_GOES);
     }
 
     handleClick(event: Event, routeName: string, game: IGame): void {

@@ -3,7 +3,6 @@ $success-color: #44BB5D;
 $info-color: #5565DF;
 
 .button {
-    width: 15%;
     min-width: 48px;
     min-height: 48px;
     color: $button-text-color;
@@ -14,21 +13,17 @@ $info-color: #5565DF;
 
 .button:hover {
     cursor: pointer;
-}
-
-.button:hover, .button:focus {
     filter: brightness(120%);
-    box-shadow: 4px 2px 5px #000;
 }
 
 .results-button, .rules-button, .settings-button, .home-button {
     background-color: $info-color;
 }
 
-.play-button, .made-button, .save-button {
+.play-button, .made-button, .save-button, .add-button {
     background-color: $success-color;
 }
 
-.back-button, .miss-button {
+.back-button, .miss-button, .remove-button {
     background-color: $danger-color;
 }

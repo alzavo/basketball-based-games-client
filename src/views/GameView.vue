@@ -1,6 +1,4 @@
 <template>
-    <!-- choose which game to render by state in store -->
-
     <Game33 v-if="this.$store.getters.getChosenGame().name === '33'" />
     <GameMinus5 v-if="this.$store.getters.getChosenGame().name === '-5'" />
     <Game21 v-if="this.$store.getters.getChosenGame().name === '21'" />

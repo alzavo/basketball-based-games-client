@@ -1,18 +1,22 @@
-.general-info {
+.game-rules {
+    max-height: 80vh;
+
+    .general-info {
+        
+        .name {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 0.2rem;
+        }
     
-    .name {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-top: 0.2rem;
-    }
-
-    hr {
-        margin-top: 0.2rem;
-    }
-
-    .rules {
-        padding: 1rem;
+        hr {
+            margin-top: 0.2rem;
+        }
+    
+        .rules {
+            padding: 1rem;
+        }
     }
 }
 
@@ -21,11 +25,10 @@
 
     .nav-actions {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
 
         button {
-            width: 8rem;
-            // mq here
+            width: 45%;
         }
     }
 }

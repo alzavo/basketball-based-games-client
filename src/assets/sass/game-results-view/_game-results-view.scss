@@ -1,0 +1,53 @@
+.game-results {
+    padding: 0.3rem;
+
+    .title {
+        display: flex;
+        justify-content: center;
+    }
+
+    .results-table {
+        max-height: 75vh;
+        overflow-y: scroll;
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            text-align: center;
+        }
+    
+        tr {
+            .place {
+                width: 4rem;
+            }
+        
+            .points {
+                width: 5rem;
+            }
+        }
+    
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+    }
+
+    .actions {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+
+        button {
+            width: 30%;
+        }
+    }
+}

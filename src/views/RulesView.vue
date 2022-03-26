@@ -13,12 +13,6 @@
             <button v-on:click="this.$router.go(-1)" class="button back-button">
                 Back
             </button>
-            <button
-                v-on:click="this.$router.push({ name: 'add-players' })"
-                class="button play-button"
-            >
-                Play
-            </button>
         </div>
     </section>
 </template>
