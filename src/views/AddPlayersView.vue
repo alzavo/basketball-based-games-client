@@ -30,18 +30,22 @@
 
         <div class="players-list">
             <table>
+                <tr>
+                    <th class="player">Player</th>
+                    <th class="actions">Remove</th>
+                </tr>
                 <tr
                     v-for="(player, index) in this.$store.state.players"
                     :key="player"
                 >
                     <td class="player">{{ player.name }}</td>
                     <td class="actions">
-                        <button
+                        <div
+                            id="remove-cross"
                             v-on:click="removePlayer($event, index)"
-                            class="button remove-button"
                         >
-                            -
-                        </button>
+                            &#10060;
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -53,7 +57,11 @@
 import { Vue } from "vue-class-component";
 import store from "@/store/index";
 import router from "@/router/index";
-import { ADD_PLAYER, REMOVE_PLAYER } from "@/store/MutationTypes";
+import {
+    ADD_PLAYER,
+    REMOVE_PLAYER,
+    SET_GAME_STATUS_START,
+} from "@/store/MutationTypes";
 import { IPlayer } from "@/interfaces/IPlayer";
 
 export default class AddPlayersView extends Vue {
@@ -82,6 +90,7 @@ export default class AddPlayersView extends Vue {
             this.message = true;
             this.messageText = "Minimal 2 players";
         } else {
+            store.commit(SET_GAME_STATUS_START);
             router.push({ name: "game" });
         }
     }

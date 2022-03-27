@@ -7,8 +7,7 @@
             <hr />
             <div class="rules">{{ game.description }}</div>
         </div>
-    </section>
-    <section class="nav">
+        <hr />
         <div class="nav-actions">
             <button v-on:click="this.$router.go(-1)" class="button back-button">
                 Back

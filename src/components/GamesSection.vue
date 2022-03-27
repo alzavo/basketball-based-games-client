@@ -1,7 +1,9 @@
 <template>
     <section class="games-home">
         <div class="games-list">
-            <div class="list-title">Basketball based games</div>
+            <div class="list-title">
+                Basketball based games &#127936; &#9977;
+            </div>
             <hr />
             <div v-for="game in games" :key="game" class="game-item">
                 <div class="game-name">

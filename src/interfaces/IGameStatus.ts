@@ -1,4 +1,4 @@
 export interface IGameStatus {
     end: boolean;
-    inProgress: boolean;
+    start: boolean;
 }

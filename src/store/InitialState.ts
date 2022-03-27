@@ -17,7 +17,10 @@ export const Game33: IGame = {
 export const Game21: IGame = {
     name: "21",
     isChosen: false,
-    description: "",
+    description:
+        "Mängust võtavad osa vähemalt kaks mängijat. " +
+        "Esimene mängija viskab vabaviskejoonest. " +
+        "Kui ta tabas, siis ta saab 1 punkt. ",
 };
 export const GameMinus5: IGame = {
     name: "-5",
@@ -35,6 +38,6 @@ export const State: IAppState = {
     games: [Game21, Game33, GameMinus5, GameAroundTheWorld],
     gameStatus: {
         end: false,
-        inProgress: false,
+        start: false,
     },
 };

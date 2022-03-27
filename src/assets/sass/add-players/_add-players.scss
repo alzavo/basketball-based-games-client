@@ -50,7 +50,7 @@
 
     .buttons-group {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
 
         button {
@@ -78,7 +78,7 @@
     
         tr {        
             .actions {
-                width: 7rem;
+                width: 5rem;
             }
         }
     
@@ -88,6 +88,11 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            #remove-cross:hover {
+                cursor: pointer;
+                font-size: 2rem;
+            }
         }
     
         tr:nth-child(even) {

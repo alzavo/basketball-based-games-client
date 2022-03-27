@@ -48,6 +48,21 @@ export default createStore({
             });
         },
 
+        [Mutation.SET_GAME_STATUS_START](state) {
+            state.gameStatus.start = true;
+            state.gameStatus.end = false;
+        },
+
+        [Mutation.SET_GAME_STATUS_END](state) {
+            state.gameStatus.start = false;
+            state.gameStatus.end = true;
+        },
+
+        [Mutation.CLEAR_GAME_STATUSES](state) {
+            state.gameStatus.start = false;
+            state.gameStatus.end = false;
+        },
+
         [Mutation.REMOVE_POINTS_FROM_PLAYERS](state) {
             state.players.forEach((player) => {
                 player.points = 0;
