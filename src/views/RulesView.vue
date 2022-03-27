@@ -5,6 +5,15 @@
                 <h1>{{ game.name }}</h1>
             </div>
             <hr />
+            <div
+                v-if="
+                    this.$store.getters.getChosenGame().name ===
+                    'Around the world'
+                "
+                class="image"
+            >
+                <img src="./../assets/halfcourt.jpg" />
+            </div>
             <div class="rules">{{ game.description }}</div>
         </div>
         <hr />

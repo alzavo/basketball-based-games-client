@@ -20,17 +20,39 @@ export const Game21: IGame = {
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija viskab vabaviskejoonest. " +
-        "Kui ta tabas, siis ta saab 1 punkt. ",
+        "Kui ta tabas, siis ta saab 1 punkt. " +
+        "Pärast korvi tabamist mängija alati läheb vabaviskejoonele ja teeb oma järgmine vise sealt. " +
+        "Kui ta pani mööda, siis järgmine mängija püüab palli püüdma ja teeb siis oma vise. " +
+        "Kui enne viset pall ei kukkunud, siis mängija saab tabamisel 2 punkti. " +
+        "Kui enne viset pall põrkes üks kord, siis mängija saab tabamisel 1 punkt. " +
+        "Kui mängija paneb mööda, siis järgmine mängija proovib palli püüda ja sooritada oma viset. " +
+        "Niimoodi mäng käib niikaua, kui keegi mängijatest kogub 21 punkti. " +
+        "Punktide kogumise ajal tuleb arvestada sellega, et kui mängijal oli 10 või 20 punkti, ning ta viskas mööda, siis tal on 0 punkti.",
 };
 export const GameMinus5: IGame = {
     name: "-5",
     isChosen: false,
-    description: "",
+    description:
+        "Mängust võtavad osa vähemalt kaks mängijat. " +
+        "Esimene mängija teeb vise vabast kohast. " +
+        "Kui ta pani korvi sisse, siis algab uus ring, kus igaüks peab sellest samast kohast tabama. " +
+        "Kui keegi selle ringi jooksul pani oma vise mööda, siis talle antakse -1 ja järgmine mängija võib visata vabast kohast. " +
+        "Kui aga ring on läbi, siis see, kes alustas seda ringi võib jälle visata vabast kohast. " +
+        "Kui mängija kogus -5, siis ta lahkub mängust. " +
+        "Võidab see, kes jääb viimasena mängus.",
 };
 export const GameAroundTheWorld: IGame = {
     name: "Around the world",
     isChosen: false,
-    description: "",
+    description:
+        "Mängust võtavad osa vähemalt kaks mängijat. " +
+        "Mängijad püüavad läbida kõik ette määratud kohad. Igal mängijal on kolm võimalust teha oma vise: " +
+        "Vaba - igal mängijal on õigus teha vaba vise igal kohal ilma karistuseta mööda panemise eest. Järgmine vise toimub kohalt, kus oli viimane mööda vise. " +
+        "Võimalus - igal mängijal on õigus teha teine vise igal kohal. Kui see vise läheb mööda, siis mängija läheb esimesse ette määratud kohale ja alustab uuesti oma järgmisest visest. " +
+        "Elu - igal mängijal on õigus teha kolmas vise igal kohal. Kui see vise läheb mööda, siis mängija kaotas ja lahkub mängust. " +
+        "Esimene mängija alustab esimesest ette määratud kohast ja liigub järgmisele kohale iga sisse pandud korviga. " +
+        "Pärast mööda panemist ta peab andma pall järgmisele mängijale või valida vastavalt olukorrale siis kas „Võimalus“ või „Elu“. " +
+        "Võidab see mängija, kes esimesena läbis kõik kohad.",
 };
 
 export const State: IAppState = {
