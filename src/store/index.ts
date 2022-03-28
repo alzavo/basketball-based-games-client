@@ -66,7 +66,7 @@ export default createStore({
         [Mutation.REMOVE_POINTS_FROM_PLAYERS](state) {
             state.players.forEach((player) => {
                 player.points = 0;
-                player.allotedShot = 1;
+                player.canPlay = true;
             });
         },
     },

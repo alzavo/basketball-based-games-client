@@ -1,65 +1,70 @@
 <template>
-    <div>
-        <table class="center" v-if="!gameEnds">
-            <tr>
-                <td><h1>Game: -5</h1></td>
-            </tr>
+    <section class="game-info">
+        <div class="player-info">
+            <div v-if="deathCircleCount > 0" class="container">
+                <div>Death circle</div>
+            </div>
+            <hr v-if="deathCircleCount > 0" />
+            <table>
+                <tr>
+                    <th class="player">Player</th>
+                    <th class="points">Points</th>
+                </tr>
+                <tr>
+                    <td>{{ this.currentPlayer.name }}</td>
+                    <td>{{ this.currentPlayer.points }}</td>
+                </tr>
+            </table>
+        </div>
+    </section>
 
-            <tr v-if="deathCircleCount > 0">
-                <td><h3>Death Circle</h3></td>
-            </tr>
-
-            <tr>
-                <td>{{ createShotMessage() }}</td>
-            </tr>
-
-            <tr>
-                <td>
-                    {{ createPointsMessage() }}
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <button v-on:click="missBucket($event)">Miss</button>
-                    <button v-on:click="madeBucket($event)">Bucket</button>
-                    <button
-                        v-on:click="this.$router.push({ name: 'add-players' })"
-                    >
-                        menu
-                    </button>
-                </td>
-            </tr>
-        </table>
-
-        <table v-if="gameEnds" class="center">
-            <tr>
-                <td>
-                    {{ createGameEndMessage() }}
-                </td>
-            </tr>
-        </table>
-    </div>
+    <section class="game-actions">
+        <div class="game-actions-choice">
+            <div class="settings">
+                <button
+                    v-on:click="this.$router.push({ name: 'settings' })"
+                    class="button settings-button"
+                >
+                    Settings
+                </button>
+            </div>
+            <hr />
+            <div class="shooting">
+                <button
+                    class="button miss-button"
+                    v-on:click="missBucket($event)"
+                >
+                    Miss
+                </button>
+                <button
+                    class="button made-button"
+                    v-on:click="madeBucket($event)"
+                >
+                    Made
+                </button>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import store from "@/store";
+import router from "@/router";
+import { SET_GAME_STATUS_END } from "@/store/MutationTypes";
 
 export default class GameMinus5 extends Vue {
-    players: IPlayer[] = [...store.state.players];
-    currentPlayer: IPlayer = this.players[0];
+    currentPlayer: IPlayer = store.state.players[0];
     deathCircleCount = 0;
-    gameEnds = false;
 
     madeBucket(event: Event): void {
         event.preventDefault();
         if (this.deathCircleCount === 0) {
             this.deathCircleCount++;
-        } else if (this.deathCircleCount < this.players.length) {
+        } else {
             this.deathCircleCount++;
-            if (this.deathCircleCount === this.players.length) {
+            if (this.deathCircleCount === this.countActivePlayers()) {
                 this.deathCircleCount = 0;
             }
         }
@@ -80,57 +85,45 @@ export default class GameMinus5 extends Vue {
 
     changePlayers(event: Event): void {
         event.preventDefault();
-        let currentPlayerIndex = this.players.indexOf(this.currentPlayer);
-        if (currentPlayerIndex === this.players.length - 1) {
-            this.currentPlayer = this.players[0];
+
+        let currentPlayerIndex = store.state.players.indexOf(
+            this.currentPlayer
+        );
+
+        if (currentPlayerIndex === store.state.players.length - 1) {
+            this.currentPlayer = store.state.players[0];
         } else {
-            this.currentPlayer = this.players[++currentPlayerIndex];
+            this.currentPlayer = store.state.players[++currentPlayerIndex];
+        }
+
+        if (!this.currentPlayer.canPlay) {
+            this.changePlayers(event);
         }
     }
 
     removePlayer(event: Event): void {
         event.preventDefault();
-        let removePlayerIndex = this.players.indexOf(this.currentPlayer);
-        this.changePlayers(event);
-        this.players.splice(removePlayerIndex, 1);
-        if (this.players.length === 1) {
-            this.gameEnds = true;
+        this.currentPlayer.canPlay = false;
+        if (this.countActivePlayers() === 1) {
+            this.finishGame();
+            return;
         }
+        this.changePlayers(event);
     }
 
-    createPointsMessage(): string {
-        return "Points: " + this.currentPlayer.points;
+    countActivePlayers(): number {
+        let counter = 0;
+        store.state.players.forEach((player) => {
+            if (player.canPlay) {
+                counter += 1;
+            }
+        });
+        return counter;
     }
 
-    createShotMessage(): string {
-        return this.currentPlayer.name + " makes shot";
-    }
-
-    createGameEndMessage(): string {
-        return this.currentPlayer.name + " WINS THE GAME!";
+    finishGame(): void {
+        store.commit(SET_GAME_STATUS_END);
+        router.push({ name: "results" });
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div {
-    border: 1px solid black;
-}
-
-table,
-th,
-td {
-    border: 1px solid black;
-}
-
-.center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-</style>

@@ -27,3 +27,64 @@ $info-color: #5565DF;
 .back-button, .miss-button, .remove-button {
     background-color: $danger-color;
 }
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+
+    .player-info {
+        font-size: 1.5rem;
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            text-align: center;
+        }
+    
+        tr {       
+            .points {
+                width: 6rem;
+            }
+        }
+    
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    }
+}
+
+.game-actions {
+    margin-top: 1rem;
+
+    .game-actions-choice {
+        display: flex;
+        flex-direction: column;
+        padding: 0 0.5rem;
+        
+        .settings {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 0.5rem 0;
+        }
+
+        .shooting {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 0.5rem 0;
+        }
+
+        button {
+            width: 33%;
+        }
+    }
+}

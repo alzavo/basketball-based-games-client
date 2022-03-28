@@ -1,31 +1,31 @@
 <template>
     <section class="game-info">
-        <div class="general-info">
-            <button
-                v-on:click="this.$router.push({ name: 'settings' })"
-                class="button settings-button"
-            >
-                Settings
-            </button>
-        </div>
-        <hr />
         <div class="player-info">
-            <div class="player-name">
-                <div class="column-name">Player</div>
-                <hr />
-                <div class="column-data">{{ this.currentPlayer.name }}</div>
-            </div>
-            <div class="player-points">
-                <div class="column-name">Points</div>
-                <hr />
-                <div class="column-data">{{ this.currentPlayer.points }}</div>
-            </div>
+            <table>
+                <tr>
+                    <th class="player">Player</th>
+                    <th class="points">Points</th>
+                </tr>
+                <tr>
+                    <td>{{ this.currentPlayer.name }}</td>
+                    <td>{{ this.currentPlayer.points }}</td>
+                </tr>
+            </table>
         </div>
     </section>
 
     <section class="game-actions">
         <div class="game-actions-choice">
-            <div class="in-game-actions">
+            <div class="settings">
+                <button
+                    v-on:click="this.$router.push({ name: 'settings' })"
+                    class="button settings-button"
+                >
+                    Settings
+                </button>
+            </div>
+            <hr />
+            <div class="shooting">
                 <button
                     class="button miss-button"
                     v-on:click="changePlayers($event)"
@@ -77,10 +77,6 @@ export default class Game33 extends Vue {
         } else {
             this.currentPlayer = store.state.players[++currentPlayerIndex];
         }
-    }
-
-    stopTheGame(event: Event): void {
-        event.preventDefault();
     }
 }
 </script>

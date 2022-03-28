@@ -99,7 +99,7 @@ export default class AddPlayersView extends Vue {
         let player: IPlayer = {
             name: this.newPlayerName,
             points: 0,
-            allotedShot: 1,
+            canPlay: true,
         };
         this.newPlayerName = "";
         return player;

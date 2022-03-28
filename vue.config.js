@@ -1,8 +1,5 @@
 // module.exports = {
 //     publicPath: process.env.NODE_ENV === 'production'
-//         ? '/basketball-based-games/'
+//         ? '/basketball-based-games-client/'
 //         : '/'
 // }
-module.exports = {
-    publicPath: '/'
-}

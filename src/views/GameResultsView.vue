@@ -48,7 +48,10 @@
 import { IPlayer } from "@/interfaces/IPlayer";
 import router from "@/router";
 import store from "@/store";
-import { CLEAR_GAME_STATUSES } from "@/store/MutationTypes";
+import {
+    CLEAR_GAME_STATUSES,
+    REMOVE_POINTS_FROM_PLAYERS,
+} from "@/store/MutationTypes";
 import { Vue } from "vue-class-component";
 
 export default class GameResultsView extends Vue {
@@ -59,6 +62,7 @@ export default class GameResultsView extends Vue {
     doAfterGameActions(event: Event): void {
         event.preventDefault();
         store.commit(CLEAR_GAME_STATUSES);
+        store.commit(REMOVE_POINTS_FROM_PLAYERS);
         router.push({ name: "home" });
     }
 }
