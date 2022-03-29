@@ -1,5 +1,5 @@
 export interface IGame {
     name: string;
-    isChosen: boolean;
+    route: string;
     description: string;
 }

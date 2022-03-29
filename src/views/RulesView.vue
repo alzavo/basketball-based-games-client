@@ -17,16 +17,21 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import store from "@/store/index";
 import { IGame } from "@/interfaces/IGame";
+import store from "@/store";
+import { Options, Vue } from "vue-class-component";
 
 @Options({
-    components: {},
+    props: {
+        name: String,
+    },
 })
 export default class RulesView extends Vue {
-    game: IGame = store.getters.getChosenGame();
+    name!: string;
+    game: IGame = { name: "", route: "", description: "" };
+
+    beforeCreate() {
+        this.game = store.getters.getGameByName(this.name);
+    }
 }
 </script>
-
-<style scoped></style>

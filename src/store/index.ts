@@ -2,7 +2,6 @@ import { createStore } from "vuex";
 
 import { IPlayer } from "@/interfaces/IPlayer";
 import { State } from "./InitialState";
-import { IGame } from "@/interfaces/IGame";
 
 import * as Mutation from "./MutationTypes";
 
@@ -10,8 +9,8 @@ export default createStore({
     state: State,
 
     getters: {
-        getChosenGame: (state) => () => {
-            return state.games.find((game) => game.isChosen);
+        getGameByName: (state) => (gameName: string) => {
+            return state.games.find((game) => game.name === gameName);
         },
 
         getPlayersOrderedByPoints: (state) => () => {
@@ -34,18 +33,6 @@ export default createStore({
 
         [Mutation.REMOVE_PLAYER](state, index: number) {
             state.players.splice(index, 1);
-        },
-
-        [Mutation.SET_GAME](state, selectedGame: IGame) {
-            state.games.forEach((game) => {
-                game.isChosen = false;
-            });
-
-            state.games.find((game) => {
-                if (game.name === selectedGame.name) {
-                    game.isChosen = true;
-                }
-            });
         },
 
         [Mutation.SET_GAME_STATUS_START](state) {

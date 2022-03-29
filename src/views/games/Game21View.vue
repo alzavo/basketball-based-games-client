@@ -16,12 +16,29 @@
 
     <section class="game-actions">
         <div class="game-actions-choice">
-            <div class="settings">
+            <div class="additional">
                 <button
-                    v-on:click="this.$router.push({ name: 'settings' })"
-                    class="button settings-button"
+                    v-on:click="
+                        this.$router.push({
+                            name: 'rules',
+                            params: { name: game.name },
+                        })
+                    "
+                    class="button rules-button"
                 >
-                    Settings
+                    Rules
+                </button>
+                <button
+                    v-on:click="this.$router.push({ name: 'home' })"
+                    class="button back-button"
+                >
+                    Quit game
+                </button>
+                <button
+                    v-on:click="this.$router.push({ name: 'results' })"
+                    class="button results-button"
+                >
+                    Results
                 </button>
             </div>
             <hr />
@@ -55,14 +72,32 @@ import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import store from "@/store";
 import router from "@/router";
-import { SET_GAME_STATUS_END } from "@/store/MutationTypes";
+import {
+    SET_GAME_STATUS_END,
+    SET_GAME_STATUS_START,
+} from "@/store/MutationTypes";
+import { IGame } from "@/interfaces/IGame";
+import { Game21 } from "@/store/InitialState";
+import GameManager from "@/helpers/GameManager";
 
-export default class Game21 extends Vue {
-    currentPlayer: IPlayer = store.state.players[0];
+export default class Game21View extends Vue {
+    currentPlayer: IPlayer = { name: "", points: 0, canPlay: true };
+    game: IGame = Game21;
+    manager = new GameManager();
+
+    beforeCreate() {
+        if (store.state.players.length === 0) {
+            router.push({ name: "home" });
+        } else {
+            this.currentPlayer = store.state.players[0];
+            store.commit(SET_GAME_STATUS_START);
+        }
+    }
 
     addPoints(event: Event, points: number): void {
         event.preventDefault();
         this.currentPlayer.points += points;
+
         if (this.currentPlayer.points === 21) {
             store.commit(SET_GAME_STATUS_END);
             router.push({ name: "results" });
@@ -77,19 +112,8 @@ export default class Game21 extends Vue {
         ) {
             this.currentPlayer.points = 0;
         }
-        this.changePlayers(event);
-    }
 
-    changePlayers(event: Event): void {
-        event.preventDefault();
-        let currentPlayerIndex = store.state.players.indexOf(
-            this.currentPlayer
-        );
-        if (currentPlayerIndex === store.state.players.length - 1) {
-            this.currentPlayer = store.state.players[0];
-        } else {
-            this.currentPlayer = store.state.players[++currentPlayerIndex];
-        }
+        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
     }
 }
 </script>

@@ -7,8 +7,8 @@
                     <th class="points">Points</th>
                 </tr>
                 <tr>
-                    <td>{{ this.currentPlayer.name }}</td>
-                    <td>{{ this.currentPlayer.points }}</td>
+                    <td>{{ currentPlayer.name }}</td>
+                    <td>{{ currentPlayer.points }}</td>
                 </tr>
             </table>
         </div>
@@ -16,12 +16,29 @@
 
     <section class="game-actions">
         <div class="game-actions-choice">
-            <div class="settings">
+            <div class="additional">
                 <button
-                    v-on:click="this.$router.push({ name: 'settings' })"
-                    class="button settings-button"
+                    v-on:click="
+                        this.$router.push({
+                            name: 'rules',
+                            params: { name: game.name },
+                        })
+                    "
+                    class="button rules-button"
                 >
-                    Settings
+                    Rules
+                </button>
+                <button
+                    v-on:click="this.$router.push({ name: 'home' })"
+                    class="button back-button"
+                >
+                    Quit game
+                </button>
+                <button
+                    v-on:click="this.$router.push({ name: 'results' })"
+                    class="button results-button"
+                >
+                    Results
                 </button>
             </div>
             <hr />
@@ -44,15 +61,31 @@
 </template>
 
 <script lang="ts">
+import { IGame } from "@/interfaces/IGame";
 import { IPlayer } from "@/interfaces/IPlayer";
 import router from "@/router";
 import store from "@/store";
-import { SET_GAME_STATUS_END } from "@/store/MutationTypes";
-
+import { Game33 } from "@/store/InitialState";
+import {
+    SET_GAME_STATUS_END,
+    SET_GAME_STATUS_START,
+} from "@/store/MutationTypes";
 import { Vue } from "vue-class-component";
+import GameManager from "@/helpers/GameManager";
 
-export default class Game33 extends Vue {
-    currentPlayer: IPlayer = store.state.players[0];
+export default class Game33View extends Vue {
+    currentPlayer: IPlayer = { name: "", points: 0, canPlay: true };
+    game: IGame = Game33;
+    manager = new GameManager();
+
+    beforeCreate() {
+        if (store.state.players.length === 0) {
+            router.push({ name: "home" });
+        } else {
+            this.currentPlayer = store.state.players[0];
+            store.commit(SET_GAME_STATUS_START);
+        }
+    }
 
     addPoints(event: Event): void {
         event.preventDefault();
@@ -69,14 +102,7 @@ export default class Game33 extends Vue {
 
     changePlayers(event: Event): void {
         event.preventDefault();
-        let currentPlayerIndex = store.state.players.indexOf(
-            this.currentPlayer
-        );
-        if (currentPlayerIndex === store.state.players.length - 1) {
-            this.currentPlayer = store.state.players[0];
-        } else {
-            this.currentPlayer = store.state.players[++currentPlayerIndex];
-        }
+        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
     }
 }
 </script>

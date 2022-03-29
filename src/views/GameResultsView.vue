@@ -55,9 +55,19 @@ import {
 import { Vue } from "vue-class-component";
 
 export default class GameResultsView extends Vue {
-    gameEnded = store.state.gameStatus.end;
-    gameStarted = store.state.gameStatus.start;
-    players: IPlayer[] = store.getters.getPlayersOrderedByPoints();
+    gameEnded = false;
+    gameStarted = false;
+    players: IPlayer[] = [];
+
+    beforeCreate() {
+        if (store.state.players.length === 0) {
+            router.push({ name: "home" });
+        } else {
+            this.gameEnded = store.state.gameStatus.end;
+            this.gameStarted = store.state.gameStatus.start;
+            this.players = store.getters.getPlayersOrderedByPoints();
+        }
+    }
 
     doAfterGameActions(event: Event): void {
         event.preventDefault();

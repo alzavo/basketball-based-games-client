@@ -3,7 +3,7 @@ import { IGame } from "@/interfaces/IGame";
 
 export const Game33: IGame = {
     name: "33",
-    isChosen: false,
+    route: "game-33",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija viskab vabaviske joone tagant. Kui ta tabas, siis ta saab 3 punkti ja viskab veel kord samast kohast. " +
@@ -16,7 +16,7 @@ export const Game33: IGame = {
 
 export const Game21: IGame = {
     name: "21",
-    isChosen: false,
+    route: "game-21",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija viskab vabaviskejoonest. " +
@@ -31,7 +31,7 @@ export const Game21: IGame = {
 };
 export const GameMinus5: IGame = {
     name: "-5",
-    isChosen: false,
+    route: "game-minus-5",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija teeb vise vabast kohast. " +
@@ -43,7 +43,7 @@ export const GameMinus5: IGame = {
 };
 export const GameAroundTheWorld: IGame = {
     name: "Around the world",
-    isChosen: false,
+    route: "game-around-the-world",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Mängijad püüavad läbida kõik ette määratud kohad. Igal mängijal on kolm võimalust teha oma vise: " +

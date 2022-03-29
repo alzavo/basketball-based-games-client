@@ -25,12 +25,29 @@
 
     <section class="game-actions">
         <div class="game-actions-choice">
-            <div class="settings">
+            <div class="additional">
                 <button
-                    v-on:click="this.$router.push({ name: 'settings' })"
-                    class="button settings-button"
+                    v-on:click="
+                        this.$router.push({
+                            name: 'rules',
+                            params: { name: game.name },
+                        })
+                    "
+                    class="button rules-button"
                 >
-                    Settings
+                    Rules
+                </button>
+                <button
+                    v-on:click="this.$router.push({ name: 'home' })"
+                    class="button back-button"
+                >
+                    Quit game
+                </button>
+                <button
+                    v-on:click="this.$router.push({ name: 'results' })"
+                    class="button results-button"
+                >
+                    Results
                 </button>
             </div>
             <hr />
@@ -63,23 +80,36 @@
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import store from "@/store";
-import { SET_GAME_STATUS_END } from "@/store/MutationTypes";
+import { SET_GAME_STATUS_START } from "@/store/MutationTypes";
 import router from "@/router";
+import { IGame } from "@/interfaces/IGame";
+import { GameAroundTheWorld } from "@/store/InitialState";
+import GameManager from "@/helpers/GameManager";
 
-export default class GameAroundTheWorld extends Vue {
-    currentPlayer: IPlayer = store.state.players[0];
+export default class GameAroundTheWorldView extends Vue {
+    currentPlayer: IPlayer = { name: "", points: 0, canPlay: true };
+    game: IGame = GameAroundTheWorld;
     missCounter = 0;
+    manager = new GameManager();
 
     beforeCreate() {
-        store.state.players.forEach((player) => {
-            player.points = 1;
-        });
+        if (store.state.players.length === 0) {
+            router.push({ name: "home" });
+        } else {
+            if (!store.state.gameStatus.start && !store.state.gameStatus.end) {
+                store.state.players.forEach((player) => {
+                    player.points = 1;
+                });
+            }
+            this.currentPlayer = store.state.players[0];
+            store.commit(SET_GAME_STATUS_START);
+        }
     }
 
     addPoints(event: Event): void {
         event.preventDefault();
         if (this.currentPlayer.points === 12) {
-            this.finishGame();
+            this.manager.finishGame();
             return;
         }
         this.currentPlayer.points += 1;
@@ -112,19 +142,7 @@ export default class GameAroundTheWorld extends Vue {
             this.currentPlayer.points = 1;
         }
 
-        let currentPlayerIndex = store.state.players.indexOf(
-            this.currentPlayer
-        );
-
-        if (currentPlayerIndex === store.state.players.length - 1) {
-            this.currentPlayer = store.state.players[0];
-        } else {
-            this.currentPlayer = store.state.players[++currentPlayerIndex];
-        }
-
-        if (!this.currentPlayer.canPlay) {
-            this.changePlayers(event);
-        }
+        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
 
         this.setChildActive("shot-free");
         this.missCounter = 0;
@@ -135,31 +153,10 @@ export default class GameAroundTheWorld extends Vue {
         this.currentPlayer.canPlay = false;
         this.currentPlayer.points = 0;
         this.setChildActive("shot-free");
-        if (!this.checkIfGameCanContinue()) {
-            this.finishGame();
-            return;
+        if (this.manager.countActivePlayers() === 1) {
+            this.manager.finishGame();
         }
         this.changePlayers(event);
-    }
-
-    checkIfGameCanContinue(): boolean {
-        let counter = 0;
-        store.state.players.forEach((player) => {
-            if (player.canPlay) {
-                counter += 1;
-            }
-        });
-
-        if (counter >= 2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    finishGame(): void {
-        store.commit(SET_GAME_STATUS_END);
-        router.push({ name: "results" });
     }
 }
 </script>

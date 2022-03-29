@@ -9,33 +9,46 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-        path: "/rules",
-        name: "rules",
-        component: () => import("../views/RulesView.vue"),
-    },
-
-    {
         path: "/add-players",
         name: "add-players",
         component: () => import("../views/AddPlayersView.vue"),
     },
 
     {
-        path: "/game",
-        name: "game",
-        component: () => import("../views/GameView.vue"),
-    },
-
-    {
-        path: "/settings",
-        name: "settings",
-        component: () => import("../views/SettingsView.vue"),
-    },
-
-    {
         path: "/results",
         name: "results",
         component: () => import("../views/GameResultsView.vue"),
+    },
+
+    {
+        path: "/rules/:name",
+        name: "rules",
+        component: () => import("../views/RulesView.vue"),
+        props: true,
+    },
+
+    {
+        path: "/game-33",
+        name: "game-33",
+        component: () => import("../views/games/Game33View.vue"),
+    },
+
+    {
+        path: "/game-21",
+        name: "game-21",
+        component: () => import("../views/games/Game21View.vue"),
+    },
+
+    {
+        path: "/game-minus-5",
+        name: "game-minus-5",
+        component: () => import("../views/games/GameMinus5View.vue"),
+    },
+
+    {
+        path: "/game-around-the-world",
+        name: "game-around-the-world",
+        component: () => import("../views/games/GameAroundTheWorldView.vue"),
     },
 ];
 
