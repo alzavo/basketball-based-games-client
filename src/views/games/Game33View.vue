@@ -64,7 +64,7 @@
 import { IGame } from "@/interfaces/IGame";
 import { IPlayer } from "@/interfaces/IPlayer";
 import router from "@/router";
-import store from "@/store";
+import { STORE } from "@/store";
 import { Game33 } from "@/store/InitialState";
 import {
     SET_GAME_STATUS_END,
@@ -79,11 +79,11 @@ export default class Game33View extends Vue {
     manager = new GameManager();
 
     beforeCreate() {
-        if (store.state.players.length === 0) {
+        if (STORE.state.players.length === 0) {
             router.push({ name: "home" });
         } else {
-            this.currentPlayer = store.state.players[0];
-            store.commit(SET_GAME_STATUS_START);
+            this.currentPlayer = STORE.state.players[0];
+            STORE.commit(SET_GAME_STATUS_START);
         }
     }
 
@@ -94,7 +94,7 @@ export default class Game33View extends Vue {
         } else if (this.currentPlayer.points >= 30) {
             this.currentPlayer.points += 1;
             if (this.currentPlayer.points === 33) {
-                store.commit(SET_GAME_STATUS_END);
+                STORE.commit(SET_GAME_STATUS_END);
                 router.push({ name: "results" });
             }
         }

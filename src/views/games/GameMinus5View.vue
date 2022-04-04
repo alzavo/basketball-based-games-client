@@ -67,7 +67,7 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
-import store from "@/store";
+import { STORE } from "@/store";
 import router from "@/router";
 import { SET_GAME_STATUS_START } from "@/store/MutationTypes";
 import { IGame } from "@/interfaces/IGame";
@@ -81,11 +81,11 @@ export default class GameMinus5View extends Vue {
     manager = new GameManager();
 
     beforeCreate() {
-        if (store.state.players.length === 0) {
+        if (STORE.state.players.length === 0) {
             router.push({ name: "home" });
         } else {
-            this.currentPlayer = store.state.players[0];
-            store.commit(SET_GAME_STATUS_START);
+            this.currentPlayer = STORE.state.players[0];
+            STORE.commit(SET_GAME_STATUS_START);
         }
     }
 

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { IGame } from "@/interfaces/IGame";
-import store from "@/store";
+import { STORE } from "@/store";
 import { Options, Vue } from "vue-class-component";
 
 @Options({
@@ -31,7 +31,7 @@ export default class RulesView extends Vue {
     game: IGame = { name: "", route: "", description: "" };
 
     beforeCreate() {
-        this.game = store.getters.getGameByName(this.name);
+        this.game = STORE.getters.getGameByName(this.name);
     }
 }
 </script>

@@ -62,4 +62,8 @@ export const State: IAppState = {
         end: false,
         start: false,
     },
+    user: {
+        name: "",
+        token: "",
+    },
 };

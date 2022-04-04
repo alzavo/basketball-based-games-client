@@ -47,7 +47,7 @@
 <script lang="ts">
 import { IPlayer } from "@/interfaces/IPlayer";
 import router from "@/router";
-import store from "@/store";
+import { STORE } from "@/store";
 import {
     CLEAR_GAME_STATUSES,
     REMOVE_POINTS_FROM_PLAYERS,
@@ -60,19 +60,19 @@ export default class GameResultsView extends Vue {
     players: IPlayer[] = [];
 
     beforeCreate() {
-        if (store.state.players.length === 0) {
+        if (STORE.state.players.length === 0) {
             router.push({ name: "home" });
         } else {
-            this.gameEnded = store.state.gameStatus.end;
-            this.gameStarted = store.state.gameStatus.start;
-            this.players = store.getters.getPlayersOrderedByPoints();
+            this.gameEnded = STORE.state.gameStatus.end;
+            this.gameStarted = STORE.state.gameStatus.start;
+            this.players = STORE.getters.getPlayersOrderedByPoints();
         }
     }
 
     doAfterGameActions(event: Event): void {
         event.preventDefault();
-        store.commit(CLEAR_GAME_STATUSES);
-        store.commit(REMOVE_POINTS_FROM_PLAYERS);
+        STORE.commit(CLEAR_GAME_STATUSES);
+        STORE.commit(REMOVE_POINTS_FROM_PLAYERS);
         router.push({ name: "home" });
     }
 }

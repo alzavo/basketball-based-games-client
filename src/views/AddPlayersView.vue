@@ -59,7 +59,7 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-import store from "@/store/index";
+import { STORE } from "@/store";
 import { ADD_PLAYER, REMOVE_PLAYER } from "@/store/MutationTypes";
 import { IPlayer } from "@/interfaces/IPlayer";
 
@@ -71,13 +71,13 @@ export default class AddPlayersView extends Vue {
         if (this.newPlayerName.length === 0) {
             return;
         } else {
-            store.commit(ADD_PLAYER, this.createPlayer());
+            STORE.commit(ADD_PLAYER, this.createPlayer());
         }
     }
 
     removePlayer(event: Event, index: number): void {
         event.preventDefault();
-        store.commit(REMOVE_PLAYER, index);
+        STORE.commit(REMOVE_PLAYER, index);
     }
 
     createPlayer(): IPlayer {

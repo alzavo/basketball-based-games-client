@@ -16,15 +16,27 @@ $info-color: #5565DF;
     filter: brightness(120%);
 }
 
-.results-button, .rules-button, .settings-button, .home-button {
+.results-button,
+.rules-button,
+.settings-button,
+.home-button,
+.log-in-button,
+.register-button,
+.account-button {
     background-color: $info-color;
 }
 
-.play-button, .made-button, .save-button, .add-button {
+.play-button,
+.made-button,
+.save-button,
+.add-button {
     background-color: $success-color;
 }
 
-.back-button, .miss-button, .remove-button {
+.back-button,
+.miss-button,
+.remove-button,
+.cancel-button {
     background-color: $danger-color;
 }
 
@@ -42,21 +54,22 @@ $info-color: #5565DF;
             table-layout: fixed;
             text-align: center;
         }
-    
-        tr {       
+
+        tr {
             .points {
                 width: 6rem;
             }
         }
-    
-        td, th {
+
+        td,
+        th {
             border: 1px solid #dddddd;
             padding: 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-    
+
         tr:nth-child(even) {
             background-color: #dddddd;
         }
@@ -70,7 +83,7 @@ $info-color: #5565DF;
         display: flex;
         flex-direction: column;
         padding: 0 0.5rem;
-        
+
         .additional {
             display: flex;
             justify-content: space-evenly;

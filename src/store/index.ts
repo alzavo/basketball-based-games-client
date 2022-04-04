@@ -4,8 +4,9 @@ import { IPlayer } from "@/interfaces/IPlayer";
 import { State } from "./InitialState";
 
 import * as Mutation from "./MutationTypes";
+import { IJwtResponse } from "@/interfaces/IJwtResponse";
 
-export default createStore({
+export const STORE = createStore({
     state: State,
 
     getters: {
@@ -56,9 +57,12 @@ export default createStore({
                 player.canPlay = true;
             });
         },
+
+        [Mutation.LOG_IN](state, jwtResponse: IJwtResponse) {
+            state.user.name = jwtResponse.userName;
+            state.user.token = jwtResponse.token;
+        },
     },
 
     actions: {},
-
-    modules: {},
 });
