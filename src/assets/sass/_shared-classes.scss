@@ -22,7 +22,8 @@ $info-color: #5565DF;
 .home-button,
 .log-in-button,
 .register-button,
-.account-button {
+.account-button,
+.friends-button {
     background-color: $info-color;
 }
 
@@ -36,7 +37,8 @@ $info-color: #5565DF;
 .back-button,
 .miss-button,
 .remove-button,
-.cancel-button {
+.cancel-button,
+.log-out-button {
     background-color: $danger-color;
 }
 

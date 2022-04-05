@@ -3,27 +3,18 @@
     .general-info {
         overflow-y: scroll;
         max-height: 80vh;
-        
+
         .name {
             display: flex;
             flex-direction: row;
             justify-content: center;
             margin: 0.5rem 0;
         }
-    
+
         hr {
             margin-top: 0.2rem;
         }
 
-        .image {
-            text-align: center;
-
-            img {
-                width: 75%;
-                height: 30%;
-            }
-        }
-    
         .rules {
             padding: 1rem;
         }
@@ -40,8 +31,10 @@
 }
 
 .general-info {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

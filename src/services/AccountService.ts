@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "@/configuration";
-import { IFetchResponse } from "@/interfaces/IFetchResponse";
-import { IJwtResponse } from "@/interfaces/IJwtResponse";
-import { ILogin } from "@/interfaces/ILogin";
+import { IFetchResponse } from "@/domain/IFetchResponse";
+import { IJwtResponse } from "@/domain/IJwtResponse";
+import { ILogin } from "@/domain/ILogin";
 import axios from "axios";
 
 export class AccountService {

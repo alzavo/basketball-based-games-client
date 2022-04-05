@@ -10,3 +10,4 @@ export const CLEAR_GAME_STATUSES = "CLEAR_GAME_STATUSES";
 export const REMOVE_POINTS_FROM_PLAYERS = "REMOVE_POINTS_FROM_PLAYERS";
 
 export const LOG_IN = "LOG_IN";
+export const LOG_OUT = "LOG_OUT";
