@@ -1,5 +1,5 @@
 export interface IFriendship {
-    id: number,
+    id: string,
     userId: number,
     userName: string,
     friendId: number,
