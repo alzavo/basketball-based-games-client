@@ -5,3 +5,8 @@ export interface IFriendship {
     friendId: number,
     friendName: string,
 }
+
+export interface IFriendshipCreate {
+    userId: string,
+    friendId: string,
+}

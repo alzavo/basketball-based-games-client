@@ -65,5 +65,6 @@ export const State: IAppState = {
     user: {
         name: "",
         token: "",
+        id: "",
     },
 };

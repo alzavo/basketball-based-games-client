@@ -14,11 +14,22 @@ export class BaseService {
         this.apiEndpointUrl = API_BASE_URL + apiEndpointUrl;
     }
 
-    async getAll<TEntity>(): Promise<IFetchResponse<TEntity[]>> {
+    async getAll<TEntity>(
+        urlAction?: string,
+        urlParameter?: string
+    ): Promise<IFetchResponse<TEntity[]>> {
+        let url = this.apiEndpointUrl;
+        if (urlAction) {
+            url += "/" + urlAction;
+        }
+        if (urlParameter) {
+            url += "/" + urlParameter;
+        }
+
         try {
             const response = await axios({
                 method: "GET",
-                url: this.apiEndpointUrl,
+                url: url,
                 headers: {
                     "Content-type": "application/json",
                     Authorization: this.authorizationHeader,

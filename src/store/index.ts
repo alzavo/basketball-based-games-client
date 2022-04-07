@@ -61,11 +61,13 @@ export const STORE = createStore({
         [Mutation.LOG_IN](state, jwtResponse: IJwtResponse) {
             state.user.name = jwtResponse.userName;
             state.user.token = jwtResponse.token;
+            state.user.id = jwtResponse.userId;
         },
 
         [Mutation.LOG_OUT](state) {
             state.user.name = "";
             state.user.token = "";
+            state.user.id = "";
         },
     },
 

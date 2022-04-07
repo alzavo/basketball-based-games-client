@@ -16,7 +16,7 @@ export default class FriendsList extends Vue {
     service: BaseService = new BaseService("Friendships");
     friendships: IFriendship[] = [];
 
-    async created() {
+    async beforeCreate() {
         const response = await this.service.getAll<IFriendship>();
 
         if (response.data) {
