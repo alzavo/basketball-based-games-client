@@ -87,7 +87,7 @@ import { GameAroundTheWorld } from "@/store/InitialState";
 import GameManager from "@/helpers/GameManager";
 
 export default class GameAroundTheWorldView extends Vue {
-    currentPlayer: IPlayer = { name: "", points: 0, canPlay: true };
+    currentPlayer: IPlayer = { id: "", name: "", points: 0, canPlay: true };
     game: IGame = GameAroundTheWorld;
     missCounter = 0;
     manager = new GameManager();

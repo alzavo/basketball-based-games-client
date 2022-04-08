@@ -74,7 +74,7 @@ import { Vue } from "vue-class-component";
 import GameManager from "@/helpers/GameManager";
 
 export default class Game33View extends Vue {
-    currentPlayer: IPlayer = { name: "", points: 0, canPlay: true };
+    currentPlayer: IPlayer = { id: "", name: "", points: 0, canPlay: true };
     game: IGame = Game33;
     manager = new GameManager();
 

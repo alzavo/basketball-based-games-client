@@ -1,8 +1,8 @@
 export interface IFriendship {
     id: string,
-    userId: number,
+    userId: string,
     userName: string,
-    friendId: number,
+    friendId: string,
     friendName: string,
 }
 

@@ -12,13 +12,13 @@
                 Search
             </button>
         </div>
-        <table>
-            <tr v-for="user in results" :key="user">
-                <td class="name">{{ user.userName }}</td>
-                <td @click="addFriend(user)" class="actions">&#9989;</td>
-            </tr>
-        </table>
     </section>
+    <table>
+        <tr v-for="user in results" :key="user">
+            <td class="name">{{ user.userName }}</td>
+            <td @click="addFriend(user)" class="actions">&#9989;</td>
+        </tr>
+    </table>
 </template>
 
 <script lang="ts">
@@ -34,7 +34,7 @@ export default class SearchFriends extends Vue {
     searchPhrase = "";
     results: IUser[] = [];
 
-    async searchFriends(): Promise<unknown> {
+    async searchFriends() {
         if (this.searchPhrase.length === 0) return;
 
         const response = await this.usersService.getAll<IUser>(
@@ -44,12 +44,13 @@ export default class SearchFriends extends Vue {
 
         if (response.data) {
             this.results = response.data;
+            this.searchPhrase = "";
         } else {
             console.log("failed to get data");
         }
     }
 
-    async addFriend(user: IUser): Promise<unknown> {
+    async addFriend(user: IUser) {
         const newFriend: IFriendshipCreate = {
             userId: STORE.state.user.id,
             friendId: user.id,
@@ -60,7 +61,7 @@ export default class SearchFriends extends Vue {
         );
 
         if (response.statusCode === 201) {
-            return;
+            this.results.splice(this.results.indexOf(user), 1);
         } else {
             console.log("failed to create friendship");
         }
@@ -68,4 +69,34 @@ export default class SearchFriends extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+tr {
+    .name {
+        width: 80%;
+    }
+
+    .actins {
+        width: 20%;
+    }
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
