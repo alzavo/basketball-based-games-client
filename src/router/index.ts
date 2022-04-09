@@ -45,10 +45,15 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-        path: "/rules/:name",
+        path: "/statistics",
+        name: "statistics",
+        component: () => import("../views/StatsView.vue"),
+    },
+
+    {
+        path: "/rules",
         name: "rules",
         component: () => import("../views/RulesView.vue"),
-        props: true,
     },
 
     {

@@ -1,5 +1,8 @@
 export interface IGame {
-    name: string;
-    route: string;
-    description: string;
+    id: string,
+    name: string,
+    route: string,
+    description: string,
+    language: string,
+    chosen: boolean,
 }

@@ -35,7 +35,14 @@
             </button>
             <button
                 v-if="gameEnded"
-                v-on:click="doAfterGameActions($event)"
+                v-on:click="saveGame()"
+                class="button save-button"
+            >
+                Save
+            </button>
+            <button
+                v-if="gameEnded"
+                v-on:click="doAfterGameActions()"
                 class="button home-button"
             >
                 Home
@@ -45,8 +52,10 @@
 </template>
 
 <script lang="ts">
+import { IPlayedGameAllUsers } from "@/domain/IPlayedGameAllUsers";
 import { IPlayer } from "@/interfaces/IPlayer";
 import router from "@/router";
+import { BaseService } from "@/services/BaseService";
 import { STORE } from "@/store";
 import {
     CLEAR_GAME_STATUSES,
@@ -55,6 +64,7 @@ import {
 import { Vue } from "vue-class-component";
 
 export default class GameResultsView extends Vue {
+    service: BaseService = new BaseService("PlayedGames");
     gameEnded = false;
     gameStarted = false;
     players: IPlayer[] = [];
@@ -69,11 +79,41 @@ export default class GameResultsView extends Vue {
         }
     }
 
-    doAfterGameActions(event: Event): void {
-        event.preventDefault();
+    doAfterGameActions(): void {
         STORE.commit(CLEAR_GAME_STATUSES);
         STORE.commit(REMOVE_POINTS_FROM_PLAYERS);
         router.push({ name: "home" });
+    }
+
+    async saveGame() {
+        let playedGame: IPlayedGameAllUsers = { playedGames: [] };
+        let gameId = "";
+        STORE.state.games.forEach((game) => {
+            if (game.chosen) {
+                gameId = game.id;
+            }
+        });
+
+        for (let i = 0; i < this.players.length; i++) {
+            let player = this.players[i];
+            playedGame.playedGames.push({
+                place: i + 1,
+                points: player.points,
+                userId: player.id,
+                gameId: gameId,
+            });
+        }
+
+        const response = await this.service.create<IPlayedGameAllUsers>(
+            playedGame,
+            "Post"
+        );
+
+        if (response.statusCode === 201) {
+            this.doAfterGameActions();
+        } else {
+            console.log("failed to create");
+        }
     }
 }
 </script>

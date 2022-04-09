@@ -11,3 +11,5 @@ export const REMOVE_POINTS_FROM_PLAYERS = "REMOVE_POINTS_FROM_PLAYERS";
 
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
+
+export const SET_GAMES = "SET_GAMES";

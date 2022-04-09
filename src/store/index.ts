@@ -5,13 +5,14 @@ import { State } from "./InitialState";
 
 import * as Mutation from "./MutationTypes";
 import { IJwtResponse } from "@/domain/IJwtResponse";
+import { IGame } from "@/interfaces/IGame";
 
 export const STORE = createStore({
     state: State,
 
     getters: {
-        getGameByName: (state) => (gameName: string) => {
-            return state.games.find((game) => game.name === gameName);
+        getGameById: (state) => (gameId: string) => {
+            return state.games.find((game) => game.id === gameId);
         },
 
         getPlayersOrderedByPoints: (state) => () => {
@@ -68,6 +69,11 @@ export const STORE = createStore({
             state.user.name = "";
             state.user.token = "";
             state.user.id = "";
+        },
+
+        [Mutation.SET_GAMES](state, games: IGame[]) {
+            state.games = [];
+            state.games = games;
         },
     },
 

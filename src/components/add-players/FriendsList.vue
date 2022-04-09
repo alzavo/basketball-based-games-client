@@ -27,6 +27,7 @@ import { Vue } from "vue-class-component";
 export default class FriendsList extends Vue {
     service: BaseService = new BaseService("Friendships");
     friendships: IFriendship[] = [];
+    playerInList = false;
 
     async beforeCreate() {
         const response = await this.service.getAll<IFriendship>();
@@ -51,6 +52,7 @@ export default class FriendsList extends Vue {
                 (player) => player.id === friendship.friendId
             ).length > 0
         ) {
+            this.playerInList = true;
             return;
         }
 

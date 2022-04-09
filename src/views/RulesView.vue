@@ -19,19 +19,25 @@
 <script lang="ts">
 import { IGame } from "@/interfaces/IGame";
 import { STORE } from "@/store";
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
 
-@Options({
-    props: {
-        name: String,
-    },
-})
 export default class RulesView extends Vue {
-    name!: string;
-    game: IGame = { name: "", route: "", description: "" };
+    id!: string;
+    game: IGame = {
+        id: "",
+        name: "",
+        route: "",
+        description: "",
+        language: "",
+        chosen: false,
+    };
 
-    beforeCreate() {
-        this.game = STORE.getters.getGameByName(this.name);
+    created() {
+        STORE.state.games.forEach((game) => {
+            if (game.chosen) {
+                this.game = game;
+            }
+        });
     }
 }
 </script>

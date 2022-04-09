@@ -122,11 +122,23 @@ export class BaseService {
         }
     }
 
-    async create<TEntity>(dto: TEntity): Promise<IFetchResponse<TEntity>> {
+    async create<TEntity>(
+        dto: TEntity,
+        urlAction?: string,
+        urlParameter?: string
+    ): Promise<IFetchResponse<TEntity>> {
+        let url = this.apiEndpointUrl;
+        if (urlAction) {
+            url += "/" + urlAction;
+        }
+        if (urlParameter) {
+            url += "/" + urlParameter;
+        }
+
         try {
             const response = await axios({
                 method: "POST",
-                url: this.apiEndpointUrl,
+                url: url,
                 headers: {
                     "Content-type": "application/json",
                     Authorization: this.authorizationHeader,

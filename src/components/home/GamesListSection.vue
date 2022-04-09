@@ -9,19 +9,23 @@
             <div class="title">Basketball based games &#127936;</div>
             <hr />
             <div class="list">
-                <div v-for="game in games" :key="game" class="item">
+                <div
+                    v-for="game in this.$store.state.games"
+                    :key="game"
+                    class="item"
+                >
                     <div class="game-name">
                         <p>{{ game.name }}</p>
                     </div>
                     <div class="actions-list">
                         <button
-                            v-on:click="readRules($event, game)"
+                            v-on:click="readRules(game)"
                             class="button rules-button"
                         >
                             Rules
                         </button>
                         <button
-                            v-on:click="startGame($event, game)"
+                            v-on:click="startGame(game)"
                             class="button play-button"
                         >
                             Play
@@ -40,22 +44,18 @@ import { STORE } from "@/store";
 import { Vue } from "vue-class-component";
 
 export default class GameListSection extends Vue {
-    games: IGame[] = STORE.state.games;
     messageText = "";
 
-    readRules(event: Event, game: IGame): void {
-        event.preventDefault();
-        router.push({
-            name: "rules",
-            params: { name: game.name },
-        });
+    readRules(game: IGame): void {
+        game.chosen = true;
+        router.push("/rules");
     }
 
-    startGame(event: Event, game: IGame): void {
-        event.preventDefault();
+    startGame(game: IGame): void {
         if (STORE.state.players.length < 2) {
             this.messageText = "add minimal 2 players";
         } else {
+            game.chosen = true;
             router.push({ name: game.route });
         }
     }

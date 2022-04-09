@@ -30,7 +30,6 @@
                     v-on:click="
                         this.$router.push({
                             name: 'rules',
-                            params: { name: game.name },
                         })
                     "
                     class="button rules-button"

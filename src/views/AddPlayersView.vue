@@ -12,6 +12,7 @@
                     <td class="player">{{ player.name }}</td>
                     <td class="actions">
                         <div
+                            v-if="player.name !== this.$store.state.user.name"
                             id="remove-cross"
                             v-on:click="removePlayer($event, index)"
                         >
@@ -41,11 +42,12 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { STORE } from "@/store";
-import { REMOVE_PLAYER } from "@/store/MutationTypes";
+import { ADD_PLAYER, REMOVE_PLAYER } from "@/store/MutationTypes";
 import { BaseService } from "@/services/BaseService";
 import { IFriendship } from "@/domain/IFriendship";
 import PlayerNameEntry from "@/components/add-players/PlayerNameEntry.vue";
 import FriendsList from "@/components/add-players/FriendsList.vue";
+import { IPlayer } from "@/interfaces/IPlayer";
 
 @Options({ components: { PlayerNameEntry, FriendsList } })
 export default class AddPlayersView extends Vue {
@@ -56,6 +58,20 @@ export default class AddPlayersView extends Vue {
 
     async created() {
         if (STORE.state.user.token.length > 0) {
+            let userPlayer: IPlayer = {
+                id: STORE.state.user.id,
+                name: STORE.state.user.name,
+                points: 0,
+                canPlay: true,
+            };
+            if (
+                STORE.state.players.filter(
+                    (player) => player.name === userPlayer.name
+                ).length === 0
+            ) {
+                STORE.commit(ADD_PLAYER, userPlayer);
+            }
+
             const response = await this.service.getAll<IFriendship>();
 
             if (response.data) {

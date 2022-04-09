@@ -8,7 +8,12 @@
             >
                 Friends
             </button>
-            <div>Statistics</div>
+            <button
+                v-on:click="this.$router.push('/statistics')"
+                class="button stats-button"
+            >
+                Statistics
+            </button>
             <button
                 v-on:click="this.$router.push('/')"
                 class="button home-button"
