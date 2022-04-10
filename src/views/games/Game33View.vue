@@ -43,16 +43,10 @@
             </div>
             <hr />
             <div class="shooting">
-                <button
-                    class="button miss-button"
-                    v-on:click="changePlayers($event)"
-                >
+                <button class="button miss-button" @click="changePlayers()">
                     Miss
                 </button>
-                <button
-                    class="button made-button"
-                    v-on:click="addPoints($event)"
-                >
+                <button class="button made-button" @click="addPoints($event)">
                     Made
                 </button>
             </div>
@@ -100,8 +94,7 @@ export default class Game33View extends Vue {
         }
     }
 
-    changePlayers(event: Event): void {
-        event.preventDefault();
+    changePlayers(): void {
         this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
     }
 }

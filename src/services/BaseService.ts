@@ -44,8 +44,6 @@ export class BaseService {
             } else {
                 return {
                     statusCode: response.status,
-                    errorMessage:
-                        "An Error occures during the delete action. See the response status code.",
                 };
             }
         } catch (reason) {

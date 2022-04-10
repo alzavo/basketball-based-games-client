@@ -31,25 +31,7 @@ export default class HomeView extends Vue {
         const response = await this.service.getAll<IGame>();
 
         if (response.data) {
-            response.data.forEach((item) => {
-                switch (item.name) {
-                    case "33":
-                        item.route = "game-33";
-                        break;
-                    case "-5":
-                        item.route = "game-minus-5";
-                        break;
-                    case "21":
-                        item.route = "game-21";
-                        break;
-                    case "Around the world":
-                        item.route = "game-around-the-world";
-                        break;
-                }
-            });
             STORE.commit(Mutation.SET_GAMES, response.data);
-        } else {
-            console.log("fails");
         }
     }
 }

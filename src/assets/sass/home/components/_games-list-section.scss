@@ -1,0 +1,68 @@
+.message {
+    padding: 0.5rem;
+    background-color: $danger-color;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    .cross {
+        color: white;
+        cursor: pointer;
+        font-size: 2rem;
+    }
+
+    .cross:hover {
+        color: black;
+    }
+}
+
+.home-games-section {
+    display: flex;
+    flex-direction: column;
+    max-height: 50vh;
+
+    .title {
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    hr {
+        margin: 0;
+        margin-top: 0.5rem;
+    }
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+
+        .list {
+            min-height: 10vh;
+            max-height: 35vh;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0rem;
+
+            .name {
+                display: flex;
+                flex: 1;
+                justify-content: center;
+            }
+
+            .actions-list {
+                display: flex;
+                flex: 1;
+
+                button {
+                    margin: 0 0.3rem;
+                    width: 4rem;
+                }
+            }
+        }
+    }
+}

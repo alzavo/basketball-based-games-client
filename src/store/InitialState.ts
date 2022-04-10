@@ -1,12 +1,13 @@
 import { IAppState } from "@/interfaces/IAppState";
 import { IGame } from "@/interfaces/IGame";
+import * as RouteName from "@/router/RoutesNames";
 
 export const Game33: IGame = {
+    routeName: RouteName.GAME_33,
     id: "1",
     language: "est",
     chosen: false,
     name: "33",
-    route: "game-33",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija viskab vabaviske joone tagant. Kui ta tabas, siis ta saab 3 punkti ja viskab veel kord samast kohast. " +
@@ -18,11 +19,11 @@ export const Game33: IGame = {
 };
 
 export const Game21: IGame = {
+    routeName: RouteName.GAME_21,
     id: "2",
     language: "est",
     chosen: false,
     name: "21",
-    route: "game-21",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija viskab vabaviskejoonest. " +
@@ -36,11 +37,11 @@ export const Game21: IGame = {
         "Punktide kogumise ajal tuleb arvestada sellega, et kui mängijal oli 10 või 20 punkti, ning ta viskas mööda, siis tal on 0 punkti.",
 };
 export const GameMinus5: IGame = {
+    routeName: RouteName.GAME_MINUS_5,
     id: "3",
     language: "est",
     chosen: false,
     name: "-5",
-    route: "game-minus-5",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Esimene mängija teeb vise vabast kohast. " +
@@ -51,11 +52,11 @@ export const GameMinus5: IGame = {
         "Võidab see, kes jääb viimasena mängus.",
 };
 export const GameAroundTheWorld: IGame = {
+    routeName: RouteName.GAME_AROUND_THE_WORLD,
     id: "4",
     language: "est",
     chosen: false,
     name: "Around the world",
-    route: "game-around-the-world",
     description:
         "Mängust võtavad osa vähemalt kaks mängijat. " +
         "Mängijad püüavad läbida kõik ette määratud kohad. Igal mängijal on kolm võimalust teha oma vise: " +

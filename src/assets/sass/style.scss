@@ -1,6 +1,17 @@
+// ready
 @import "_base";
 @import "_shared-classes";
+
+@import "./home/components/account-section";
+@import "./home/components/add-players-section";
+@import "./home/components/games-list-section";
+
 @import "./rules/rules";
-@import "./add-players/add-players";
+
+@import "./add-players/components/players-list";
+
+// fix it
 @import "./game-results/game-results";
 @import "./games/game-around-the-world";
+
+// add more

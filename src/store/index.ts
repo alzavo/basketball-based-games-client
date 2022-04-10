@@ -11,10 +11,6 @@ export const STORE = createStore({
     state: State,
 
     getters: {
-        getGameById: (state) => (gameId: string) => {
-            return state.games.find((game) => game.id === gameId);
-        },
-
         getPlayersOrderedByPoints: (state) => () => {
             return state.players.sort(function (player1, player2) {
                 if (player1.points < player2.points) {
@@ -50,6 +46,7 @@ export const STORE = createStore({
         [Mutation.CLEAR_GAME_STATUSES](state) {
             state.gameStatus.start = false;
             state.gameStatus.end = false;
+            state.games.forEach((game) => (game.chosen = false));
         },
 
         [Mutation.REMOVE_POINTS_FROM_PLAYERS](state) {

@@ -1,36 +1,21 @@
 <template>
-    <section class="add-players">
-        <div class="container">
-            <button
-                v-on:click="this.$router.push({ name: 'add-players' })"
-                class="button add-button"
-            >
-                Add players
+    <section class="home-add-players-section">
+        <div class="wrapper">
+            <button @click="goToAddPlayersView()" class="button add-button">
+                Add Players
             </button>
         </div>
     </section>
 </template>
 
 <script lang="ts">
+import router from "@/router";
 import { Vue } from "vue-class-component";
+import * as RouteName from "@/router/RoutesNames";
 
-export default class AddPlayersSection extends Vue {}
-</script>
-
-<style lang="scss" scoped>
-.add-players {
-    margin-top: 0.5rem;
-
-    .container {
-        display: flex;
-        margin: 0;
-        padding: 0.3rem;
-        justify-content: center;
-
-        button {
-            width: 7rem;
-            padding: 0.2rem;
-        }
+export default class AddPlayersSection extends Vue {
+    goToAddPlayersView() {
+        router.push({ name: RouteName.ADD_PLAYERS });
     }
 }
-</style>
+</script>

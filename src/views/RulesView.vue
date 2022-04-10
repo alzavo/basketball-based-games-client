@@ -1,14 +1,14 @@
 <template>
-    <section class="game-rules">
-        <div class="general-info">
-            <div class="name">
-                <h1>{{ game.name }}</h1>
-            </div>
-            <hr />
+    <section class="rules-section">
+        <div class="name">
+            <h1>{{ game.name }}</h1>
+        </div>
+        <hr />
+        <div class="wrapper">
             <div class="rules">{{ game.description }}</div>
         </div>
         <hr />
-        <div class="nav-actions">
+        <div class="buttons">
             <button v-on:click="this.$router.go(-1)" class="button back-button">
                 Back
             </button>
@@ -22,11 +22,10 @@ import { STORE } from "@/store";
 import { Vue } from "vue-class-component";
 
 export default class RulesView extends Vue {
-    id!: string;
     game: IGame = {
+        routeName: "",
         id: "",
         name: "",
-        route: "",
         description: "",
         language: "",
         chosen: false,

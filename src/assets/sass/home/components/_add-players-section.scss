@@ -1,0 +1,14 @@
+.home-add-players-section {
+    margin-top: 0.5rem;
+
+    .wrapper {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0.2rem;
+
+        button {
+            padding: 0.3rem;
+            width: 7rem;
+        }
+    }
+}

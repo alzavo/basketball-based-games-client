@@ -1,0 +1,13 @@
+export const HOME = "HOME";
+export const ADD_PLAYERS = "ADD_PLAYERS";
+export const REGISTER = "REGISTER";
+export const LOG_IN = "LOG_IN";
+export const PROFILE = "PROFILE";
+export const RESULTS = "RESULTS";
+export const FRIENDS = "FRIENDS";
+export const STATISTICS = "STATISTICS";
+export const RULES = "RULES";
+export const GAME_33 = "GAME_33";
+export const GAME_21 = "GAME_21";
+export const GAME_MINUS_5 = "GAME_MINUS_5";
+export const GAME_AROUND_THE_WORLD = "GAME_AROUND_THE_WORLD";

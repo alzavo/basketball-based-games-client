@@ -1,24 +1,16 @@
 <template>
-    <section class="account-entry">
-        <div v-if="this.$store.state.user.token.length === 0" class="wrapper">
-            <button
-                v-on:click="this.$router.push('/register')"
-                class="button register-button"
-            >
+    <section class="home-account-section">
+        <div v-if="!userLoggedIn" class="wrapper">
+            <button @click="goToRegisterView()" class="button register-button">
                 Register
             </button>
-            <button
-                v-on:click="this.$router.push('/log-in')"
-                class="button log-in-button"
-            >
+            <button @click="goToLogInView()" class="button log-in-button">
                 Log In
             </button>
         </div>
-        <div v-if="this.$store.state.user.token.length !== 0" class="wrapper">
-            <button
-                v-on:click="this.$router.push('/profile')"
-                class="button register-button"
-            >
+
+        <div v-if="userLoggedIn" class="wrapper">
+            <button @click="goToProfileView()" class="button register-button">
                 Profile
             </button>
         </div>
@@ -26,24 +18,24 @@
 </template>
 
 <script lang="ts">
+import router from "@/router";
+import { STORE } from "@/store";
 import { Vue } from "vue-class-component";
+import * as RouteName from "@/router/RoutesNames";
 
-export default class AccountSection extends Vue {}
-</script>
+export default class AccountSection extends Vue {
+    userLoggedIn = STORE.state.user.token.length !== 0;
 
-<style lang="scss" scoped>
-.account-entry {
-    margin-top: 0.5rem;
-
-    .wrapper {
-        display: flex;
-        justify-content: space-evenly;
-        padding: 0.2rem;
+    goToRegisterView() {
+        router.push({ name: RouteName.REGISTER });
     }
 
-    button {
-        padding: 0.3rem;
-        width: 5rem;
+    goToLogInView() {
+        router.push({ name: RouteName.LOG_IN });
+    }
+
+    goToProfileView() {
+        router.push({ name: RouteName.PROFILE });
     }
 }
-</style>
+</script>
