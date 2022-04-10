@@ -1,3 +1,4 @@
+import { IFriendship } from "@/domain/IFriendship";
 import { IGame } from "./IGame";
 import { IGameStatus } from "./IGameStatus";
 import { IPlayer } from "./IPlayer";

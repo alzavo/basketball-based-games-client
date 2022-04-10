@@ -1,14 +1,14 @@
 <template>
-    <section class="new-player-entry">
-        <div>
+    <section class="player-name-entry-section">
+        <div class="wrapper">
             <input
                 type="text"
                 autocomplete="off"
                 placeholder="Enter name"
-                maxlength="15"
+                maxlength="30"
                 v-model="this.newPlayerName"
             />
-            <button class="button add-button" @click="addPlayer()">+</button>
+            <button @click="addPlayer()" class="button add-button">Add</button>
         </div>
     </section>
 </template>
@@ -37,5 +37,3 @@ export default class PlayerNameEntry extends Vue {
     }
 }
 </script>
-
-<style scoped></style>

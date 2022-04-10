@@ -62,6 +62,7 @@ import {
     REMOVE_POINTS_FROM_PLAYERS,
 } from "@/store/MutationTypes";
 import { Vue } from "vue-class-component";
+import * as RouteName from "@/router/RoutesNames";
 
 export default class GameResultsView extends Vue {
     service: BaseService = new BaseService("PlayedGames");
@@ -82,7 +83,7 @@ export default class GameResultsView extends Vue {
     doAfterGameActions(): void {
         STORE.commit(CLEAR_GAME_STATUSES);
         STORE.commit(REMOVE_POINTS_FROM_PLAYERS);
-        router.push({ name: "home" });
+        router.push({ name: RouteName.HOME });
     }
 
     async saveGame() {

@@ -1,16 +1,20 @@
 <template>
-    <section id="friends-list-add-players-section">
+    <section class="friends-list-section">
         <div class="wrapper">
             <table>
                 <tr>
-                    <td colspan="2"><h2>Friends</h2></td>
+                    <td colspan="2"><h1>Friends list</h1></td>
                 </tr>
-                <tr v-for="friendship in friendships" :key="friendship">
-                    <td class="name">{{ friendship.friendName }}</td>
-                    <td @click="addFriend(friendship)" class="actions">
-                        &#9989;
-                    </td>
-                </tr>
+            </table>
+            <table>
+                <template v-for="friend in friends" :key="friend">
+                    <tr v-if="!friend.chosen">
+                        <td class="name">{{ friend.name }}</td>
+                        <td @click="addPlayer(friend)" class="actions">
+                            &#9989;
+                        </td>
+                    </tr>
+                </template>
             </table>
         </div>
     </section>
@@ -26,77 +30,33 @@ import { Vue } from "vue-class-component";
 
 export default class FriendsList extends Vue {
     service: BaseService = new BaseService("Friendships");
-    friendships: IFriendship[] = [];
-    playerInList = false;
+    friends: IPlayer[] = [];
 
-    async beforeCreate() {
+    async created() {
         const response = await this.service.getAll<IFriendship>();
 
         if (response.data) {
-            this.friendships = response.data;
-        } else {
-            console.log("failed to load friends");
+            response.data.forEach((friendship) => {
+                this.friends.push(this.createPlayer(friendship));
+            });
         }
     }
 
-    addFriend(friendship: IFriendship) {
-        let player: IPlayer = {
+    addPlayer(friend: IPlayer) {
+        if (!friend.chosen) {
+            friend.chosen = true;
+            STORE.commit(ADD_PLAYER, friend);
+        }
+    }
+
+    createPlayer(friendship: IFriendship): IPlayer {
+        return {
             id: friendship.friendId,
             name: friendship.friendName,
             points: 0,
             canPlay: true,
+            chosen: false,
         };
-
-        if (
-            STORE.state.players.filter(
-                (player) => player.id === friendship.friendId
-            ).length > 0
-        ) {
-            this.playerInList = true;
-            return;
-        }
-
-        STORE.commit(ADD_PLAYER, player);
     }
 }
 </script>
-
-<style lang="scss" scoped>
-#friends-list-add-players-section {
-    margin-top: 0.5rem;
-}
-
-.wrapper {
-    padding: 0.3rem;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-    text-align: center;
-}
-
-tr {
-    .name {
-        width: 80%;
-    }
-
-    .actins {
-        width: 20%;
-    }
-}
-
-td,
-th {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>

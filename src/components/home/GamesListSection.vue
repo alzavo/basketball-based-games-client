@@ -3,7 +3,7 @@
         <div>
             <strong>{{ messageText }}</strong>
         </div>
-        <div v-on:click="this.messageText = ''" class="cross">&times;</div>
+        <div @click="this.messageText = ''" class="cross">&times;</div>
     </section>
 
     <section class="home-games-section">
@@ -39,13 +39,23 @@ import router from "@/router";
 import { STORE } from "@/store";
 import { Vue } from "vue-class-component";
 import * as RouteName from "@/router/RoutesNames";
+import * as Mutation from "@/store/MutationTypes";
+import { BaseService } from "@/services/BaseService";
 
 export default class GameListSection extends Vue {
     games: IGame[] = [];
     messageText = "";
+    service: BaseService = new BaseService("Games");
 
-    created() {
+    async created() {
         this.games = STORE.state.games;
+
+        const response = await this.service.getAll<IGame>();
+
+        if (response.data) {
+            STORE.commit(Mutation.SET_GAMES, response.data);
+            this.games = response.data;
+        }
     }
 
     readRules(game: IGame): void {

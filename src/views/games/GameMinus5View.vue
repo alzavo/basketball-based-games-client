@@ -75,7 +75,13 @@ import { GameMinus5 } from "@/store/InitialState";
 import GameManager from "@/helpers/GameManager";
 
 export default class GameMinus5View extends Vue {
-    currentPlayer: IPlayer = { id: "", name: "", points: 0, canPlay: true };
+    currentPlayer: IPlayer = {
+        id: "",
+        name: "",
+        points: 0,
+        canPlay: true,
+        chosen: true,
+    };
     game: IGame = GameMinus5;
     deathCircleCount = 0;
     manager = new GameManager();

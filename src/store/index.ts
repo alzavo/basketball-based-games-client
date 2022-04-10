@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
 
 import { IPlayer } from "@/interfaces/IPlayer";
+import * as Games from "./InitialState";
 import { State } from "./InitialState";
 
 import * as Mutation from "./MutationTypes";
+import * as RouteName from "@/router/RoutesNames";
 import { IJwtResponse } from "@/domain/IJwtResponse";
 import { IGame } from "@/interfaces/IGame";
 
@@ -29,8 +31,9 @@ export const STORE = createStore({
             state.players.push(player);
         },
 
-        [Mutation.REMOVE_PLAYER](state, index: number) {
-            state.players.splice(index, 1);
+        [Mutation.REMOVE_PLAYER](state, player: IPlayer) {
+            player.chosen = false;
+            state.players.splice(state.players.indexOf(player), 1);
         },
 
         [Mutation.SET_GAME_STATUS_START](state) {
@@ -69,7 +72,23 @@ export const STORE = createStore({
         },
 
         [Mutation.SET_GAMES](state, games: IGame[]) {
-            state.games = [];
+            games.forEach((game) => {
+                switch (game.name) {
+                    case Games.Game21.name:
+                        game.routeName = RouteName.GAME_21;
+                        break;
+                    case Games.Game33.name:
+                        game.routeName = RouteName.GAME_33;
+                        break;
+                    case Games.GameMinus5.name:
+                        game.routeName = RouteName.GAME_MINUS_5;
+                        break;
+                    case Games.GameAroundTheWorld.name:
+                        game.routeName = RouteName.GAME_AROUND_THE_WORLD;
+                        break;
+                }
+            });
+
             state.games = games;
         },
     },

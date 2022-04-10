@@ -29,13 +29,13 @@
                     Rules
                 </button>
                 <button
-                    v-on:click="this.$router.push({ name: 'home' })"
+                    v-on:click="this.$router.push({ name: 'HOME' })"
                     class="button back-button"
                 >
                     Quit game
                 </button>
                 <button
-                    v-on:click="this.$router.push({ name: 'results' })"
+                    v-on:click="this.$router.push({ name: 'RESULTS' })"
                     class="button results-button"
                 >
                     Results
@@ -66,15 +66,22 @@ import {
 } from "@/store/MutationTypes";
 import { Vue } from "vue-class-component";
 import GameManager from "@/helpers/GameManager";
+import * as RouteName from "@/router/RoutesNames";
 
 export default class Game33View extends Vue {
-    currentPlayer: IPlayer = { id: "", name: "", points: 0, canPlay: true };
+    currentPlayer: IPlayer = {
+        id: "",
+        name: "",
+        points: 0,
+        canPlay: true,
+        chosen: true,
+    };
     game: IGame = Game33;
     manager = new GameManager();
 
     beforeCreate() {
         if (STORE.state.players.length === 0) {
-            router.push({ name: "home" });
+            router.push({ name: RouteName.HOME });
         } else {
             this.currentPlayer = STORE.state.players[0];
             STORE.commit(SET_GAME_STATUS_START);
@@ -89,7 +96,7 @@ export default class Game33View extends Vue {
             this.currentPlayer.points += 1;
             if (this.currentPlayer.points === 33) {
                 STORE.commit(SET_GAME_STATUS_END);
-                router.push({ name: "results" });
+                router.push({ name: RouteName.RESULTS });
             }
         }
     }

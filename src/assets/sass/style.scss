@@ -1,14 +1,21 @@
-// ready
+//////////// READY
+// base
 @import "_base";
 @import "_shared-classes";
-
+// home view
 @import "./home/components/account-section";
 @import "./home/components/add-players-section";
 @import "./home/components/games-list-section";
-
+// rules view
 @import "./rules/rules";
-
+// add-player view
 @import "./add-players/components/players-list";
+@import "./add-players/components/player-name-entry-section";
+@import "./add-players/components/buttons-group-section";
+@import "./add-players/components/friends-list-section";
+
+
+
 
 // fix it
 @import "./game-results/game-results";

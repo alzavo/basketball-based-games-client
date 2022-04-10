@@ -1,0 +1,19 @@
+.player-name-entry-section {
+    margin-top: 0.5rem;
+
+    .wrapper {
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+            height: 2rem;
+            width: 80%;
+        }
+
+        button {
+            width: 15%;
+        }
+    }
+}

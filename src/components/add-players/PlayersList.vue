@@ -1,5 +1,5 @@
 <template>
-    <section class="add-players-section">
+    <section class="players-list-section">
         <div class="wrapper">
             <table>
                 <tr>
@@ -7,9 +7,9 @@
                 </tr>
             </table>
             <table>
-                <tr v-for="(player, index) in players" :key="player">
+                <tr v-for="player in players" :key="player">
                     <td class="player-name">{{ player.name }}</td>
-                    <td @click="removePlayer(index)">&#10060;</td>
+                    <td @click="removePlayer(player)">&#10060;</td>
                 </tr>
             </table>
         </div>
@@ -30,8 +30,8 @@ export default class PlayersList extends Vue {
         this.players = STORE.state.players;
     }
 
-    removePlayer(index: number): void {
-        STORE.commit(REMOVE_PLAYER, index);
+    removePlayer(player: IPlayer): void {
+        STORE.commit(REMOVE_PLAYER, player);
     }
 }
 </script>

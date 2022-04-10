@@ -1,0 +1,40 @@
+.friends-list-section {
+    margin-top: 0.5rem;
+
+    .wrapper {
+        padding: 1rem;
+        min-height: 40vh;
+        max-height: 40vh;
+        overflow-y: scroll;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+        text-align: center;
+    }
+
+    tr {
+        .name {
+            width: 80%;
+        }
+
+        .actins {
+            width: 20%;
+        }
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+}
