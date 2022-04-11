@@ -1,0 +1,25 @@
+.profile-section {
+    .wrapper {
+        padding: 0.3rem;
+
+        .greeting {
+            display: flex;
+            justify-content: center;
+
+            h1 {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+
+            button {
+                margin: 0.3rem 0rem;
+            }
+        }
+    }
+}

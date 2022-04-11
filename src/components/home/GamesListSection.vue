@@ -48,13 +48,13 @@ export default class GameListSection extends Vue {
     service: BaseService = new BaseService("Games");
 
     async created() {
-        this.games = STORE.state.games;
-
         const response = await this.service.getAll<IGame>();
 
         if (response.data) {
             STORE.commit(Mutation.SET_GAMES, response.data);
             this.games = response.data;
+        } else {
+            this.games = STORE.state.games;
         }
     }
 

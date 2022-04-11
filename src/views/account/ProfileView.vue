@@ -1,28 +1,27 @@
 <template>
-    <section>
-        <div>
-            <div>Welcome, {{ user.name }}!</div>
-            <button
-                v-on:click="this.$router.push('/friends')"
-                class="button friends-button"
-            >
-                Friends
-            </button>
-            <button
-                v-on:click="this.$router.push('/statistics')"
-                class="button stats-button"
-            >
-                Statistics
-            </button>
-            <button
-                v-on:click="this.$router.push('/')"
-                class="button home-button"
-            >
-                Home
-            </button>
-            <button v-on:click="logOut()" class="button log-out-button">
-                Log Out
-            </button>
+    <section class="profile-section">
+        <div class="wrapper">
+            <div class="greeting">
+                <h1>Welcome, {{ user.name }}!</h1>
+            </div>
+            <hr />
+            <div class="choices">
+                <button
+                    @click="goToFriendsView()"
+                    class="button friends-button"
+                >
+                    Friends
+                </button>
+                <button @click="goToStatsView()" class="button stats-button">
+                    Statistics
+                </button>
+                <button @click="goToHomeView()" class="button home-button">
+                    Home
+                </button>
+                <button @click="logOut()" class="button log-out-button">
+                    Log Out
+                </button>
+            </div>
         </div>
     </section>
 </template>
@@ -32,13 +31,26 @@ import router from "@/router";
 import { STORE } from "@/store";
 import { LOG_OUT } from "@/store/MutationTypes";
 import { Vue } from "vue-class-component";
+import * as RouteName from "@/router/RoutesNames";
 
 export default class ProfileView extends Vue {
     user = STORE.state.user;
 
+    goToFriendsView() {
+        router.push({ name: RouteName.FRIENDS });
+    }
+
+    goToStatsView() {
+        router.push({ name: RouteName.STATISTICS });
+    }
+
+    goToHomeView() {
+        router.push({ name: RouteName.HOME });
+    }
+
     logOut(): void {
         STORE.commit(LOG_OUT);
-        router.push("/");
+        this.goToHomeView();
     }
 }
 </script>

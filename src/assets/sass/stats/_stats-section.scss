@@ -1,0 +1,50 @@
+.stats-section {
+    .wrapper {
+        padding: 0.7rem;
+        display: flex;
+        flex-direction: column;
+
+        .table-wrapper {
+            overflow-y: scroll;
+            max-height: 80vh;
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                table-layout: fixed;
+                text-align: center;
+            }
+
+            tr {
+                .place {
+                    width: 25%;
+                }
+
+                .points {
+                    width: 25%;
+                }
+
+                .name {
+                    width: 50%;
+                }
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                padding: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        }
+
+        button {
+            margin-top: 0.5rem;
+        }
+    }
+}
