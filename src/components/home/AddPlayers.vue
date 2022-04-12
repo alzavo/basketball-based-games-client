@@ -1,5 +1,5 @@
 <template>
-    <section class="home-add-players-section">
+    <section id="add-players-home-section">
         <div class="wrapper">
             <button @click="goToAddPlayersView()" class="button add-button">
                 Add Players

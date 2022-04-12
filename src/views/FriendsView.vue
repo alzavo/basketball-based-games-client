@@ -12,7 +12,6 @@
 
             <FriendsList v-if="!doSearch" />
             <SearchFriends v-if="doSearch" />
-
             <button @click="goToProfileView()" class="button back-button">
                 Back
             </button>

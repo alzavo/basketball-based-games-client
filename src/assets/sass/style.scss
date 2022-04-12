@@ -4,29 +4,38 @@
 @import "_shared-classes";
 
 // home view
-@import "./home/components/account-section";
-@import "./home/components/add-players-section";
-@import "./home/components/games-list-section";
+@import "./home/components/account";
+@import "./home/components/add-players";
+@import "./home/components/games-list";
 
 // rules view
 @import "./rules/rules";
 
 // add-player view
 @import "./add-players/components/players-list";
-@import "./add-players/components/player-name-entry-section";
-@import "./add-players/components/buttons-group-section";
-@import "./add-players/components/friends-list-section";
+@import "./add-players/components/player-name-entry";
+@import "./add-players/components/buttons-group";
+@import "./add-players/components/friends-list";
 
 // profile view
 @import "./acount/profile/profile-section";
 
+// log in / register view
+@import "./acount/components/user-credentials-entry";
+
 // stats view
-@import "./stats/stats-section";
+@import "./stats/stats";
 
 // friends view
-@import "./friends/friends-section";
-@import "./friends/components/friends-list-section";
-@import "./friends/components/search-friends-section";
+@import "./friends/friends";
+@import "./friends/components/friends-list";
+@import "./friends/components/search-friends";
+
+// results view
+@import "./game-results/components/winner-info";
+@import "./game-results/components/results-table";
+@import "./game-results/components/actions";
+@import "./game-results/game-results";
 
 // games view
 @import "./games/actions";
@@ -45,9 +54,3 @@
 // game around the world
 @import "./games/game-around-the-world/points-counter";
 @import "./games/game-around-the-world/map";
-
-
-// fix it
-@import "./game-results/game-results";
-
-// add more

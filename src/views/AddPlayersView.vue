@@ -23,7 +23,6 @@ import ButtonsGroup from "@/components/add-players/ButtonsGroup.vue";
 })
 export default class AddPlayersView extends Vue {
     userLoggedIn = false;
-
     created() {
         this.userLoggedIn = STORE.state.user.token.length > 0;
     }

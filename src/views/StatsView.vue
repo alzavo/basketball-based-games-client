@@ -1,5 +1,5 @@
 <template>
-    <section class="stats-section">
+    <section id="stats-section">
         <div class="wrapper">
             <div class="table-wrapper">
                 <table>
@@ -15,6 +15,7 @@
                     </tr>
                 </table>
             </div>
+
             <button @click="this.$router.go(-1)" class="button back-button">
                 Back
             </button>

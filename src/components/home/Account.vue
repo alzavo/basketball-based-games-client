@@ -1,5 +1,5 @@
 <template>
-    <section class="home-account-section">
+    <section id="account-home-section">
         <div v-if="!userLoggedIn" class="wrapper">
             <button @click="goToRegisterView()" class="button register-button">
                 Register

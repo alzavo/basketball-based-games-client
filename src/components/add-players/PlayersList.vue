@@ -1,5 +1,5 @@
 <template>
-    <section class="players-list-section">
+    <section id="players-list-add-players-section">
         <div class="wrapper">
             <table>
                 <tr>

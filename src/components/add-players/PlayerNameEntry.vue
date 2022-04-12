@@ -1,5 +1,5 @@
 <template>
-    <section class="player-name-entry-section">
+    <section id="player-name-entry-add-players-section">
         <div class="wrapper">
             <input
                 type="text"

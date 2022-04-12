@@ -1,4 +1,4 @@
-.message {
+#message-home-section {
     padding: 0.5rem;
     background-color: $danger-color;
     color: white;
@@ -18,7 +18,7 @@
     }
 }
 
-.home-games-section {
+#games-list-home-section {
     display: flex;
     flex-direction: column;
     max-height: 50vh;

@@ -63,6 +63,7 @@ export const STORE = createStore({
             state.user.name = jwtResponse.userName;
             state.user.token = jwtResponse.token;
             state.user.id = jwtResponse.userId;
+            state.players = [];
         },
 
         [Mutation.LOG_OUT](state) {

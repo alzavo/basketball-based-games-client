@@ -1,5 +1,5 @@
 <template>
-    <section id="add-players-friends-list-section">
+    <section id="friends-list-add-players-section">
         <div class="wrapper">
             <table>
                 <tr>

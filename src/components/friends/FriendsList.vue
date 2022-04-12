@@ -1,11 +1,15 @@
 <template>
     <section id="friends-list-friends-section">
-        <table>
-            <tr v-for="friend in friendships" :key="friend">
-                <td class="name">{{ friend.friendName }}</td>
-                <td @click="deleteFriend(friend)" class="actions">&#10060;</td>
-            </tr>
-        </table>
+        <div class="wrapper">
+            <table>
+                <tr v-for="friend in friendships" :key="friend">
+                    <td class="name">{{ friend.friendName }}</td>
+                    <td @click="deleteFriend(friend)" class="actions">
+                        &#10060;
+                    </td>
+                </tr>
+            </table>
+        </div>
     </section>
 </template>
 

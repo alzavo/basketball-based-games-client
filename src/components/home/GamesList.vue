@@ -1,12 +1,12 @@
 <template>
-    <section v-if="messageText.length !== 0" class="message">
+    <section v-if="messageText.length !== 0" id="message-home-section">
         <div>
             <strong>{{ messageText }}</strong>
         </div>
         <div @click="this.messageText = ''" class="cross">&times;</div>
     </section>
 
-    <section class="home-games-section">
+    <section id="games-list-home-section">
         <div class="title">Basketball based games &#127936;</div>
         <hr />
         <div class="wrapper">

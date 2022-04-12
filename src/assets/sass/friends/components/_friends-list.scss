@@ -5,6 +5,10 @@
     max-height: 55vh;
     overflow-y: scroll;
 
+    .wrapper {
+        padding: 0.5rem;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;

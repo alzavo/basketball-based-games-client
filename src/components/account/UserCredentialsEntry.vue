@@ -1,10 +1,12 @@
 <template>
-    <section v-if="messageText.length !== 0" class="message">
-        <div>{{ messageText }}</div>
-        <div v-on:click="this.messageText = ''" class="cross">&times;</div>
+    <section v-if="messageText.length !== 0" id="message-account-section">
+        <div>
+            <strong>{{ messageText }}</strong>
+        </div>
+        <div @click="this.messageText = ''" class="cross">&times;</div>
     </section>
 
-    <section>
+    <section id="user-credentials-entry-account-section">
         <div class="wrapper-inputs">
             <input
                 v-model="userName"
@@ -18,10 +20,10 @@
             />
         </div>
         <div class="wrapper-buttons">
-            <button v-on:click="sendData($event)" class="button log-in-button">
+            <button @click="sendData($event)" class="button log-in-button">
                 Submit
             </button>
-            <button v-on:click="this.$router.go(-1)" class="button back-button">
+            <button @click="this.$router.go(-1)" class="button back-button">
                 Back
             </button>
         </div>
@@ -37,17 +39,17 @@ import { AccountService } from "@/services/AccountService";
 import { STORE } from "@/store";
 import { LOG_IN } from "@/store/MutationTypes";
 import { Vue } from "vue-class-component";
+import * as RouteName from "@/router/RoutesNames";
 
 export default class UserCredentialsEntry extends Vue {
     service: AccountService = new AccountService();
-
     userName = "";
     password = "";
     messageText = "";
 
-    beforeCreate() {
+    created() {
         if (STORE.state.user.token.length !== 0) {
-            router.push("/profile");
+            router.push({ name: RouteName.PROFILE });
         }
     }
 
@@ -55,7 +57,7 @@ export default class UserCredentialsEntry extends Vue {
         event.preventDefault();
 
         if (this.userName.length === 0 || this.password.length === 0) {
-            this.messageText = "fill all fields!";
+            this.messageText = "Fill all fields!";
             return;
         }
 
@@ -74,35 +76,14 @@ export default class UserCredentialsEntry extends Vue {
         if (!response.data) {
             if (window.location.pathname === "/register") {
                 this.messageText =
-                    "user {" + this.userName + "} already registered";
+                    "User {" + this.userName + "} already registered!";
             } else {
-                this.messageText = "wrong user name or password";
+                this.messageText = "Wrong user name or password!";
             }
         } else {
             STORE.commit(LOG_IN, response.data);
-            router.push("/profile");
+            router.push({ name: RouteName.PROFILE });
         }
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.wrapper-buttons,
-.wrapper-inputs {
-    display: flex;
-    padding: 0.5rem;
-}
-.wrapper-inputs {
-    flex-direction: column;
-    input {
-        margin-bottom: 0.5rem;
-        height: 2rem;
-    }
-}
-.wrapper-buttons {
-    button {
-        width: 30%;
-        margin: auto;
-    }
-}
-</style>
