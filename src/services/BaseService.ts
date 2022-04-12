@@ -163,17 +163,26 @@ export class BaseService {
         }
     }
 
-    async delete(id: string): Promise<IFetchResponse<unknown>> {
+    async delete(
+        id: string,
+        urlAction?: string,
+        urlParameter?: string
+    ): Promise<IFetchResponse<unknown>> {
+        let url = this.apiEndpointUrl;
+        if (urlAction) {
+            url += "/" + urlAction;
+        }
+        if (urlParameter) {
+            url += "/" + urlParameter;
+        }
+
         try {
-            const response = await axios.delete(
-                this.apiEndpointUrl + "/" + id,
-                {
-                    headers: {
-                        "Content-type": "application/json",
-                        Authorization: this.authorizationHeader,
-                    },
-                }
-            );
+            const response = await axios.delete(url + "/" + id, {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: this.authorizationHeader,
+                },
+            });
 
             if (response.status === 204) {
                 return {
