@@ -1,11 +1,11 @@
 <template>
-    <section class="new-player-entry">
-        <div>
+    <section id="search-friends-friends-section">
+        <div class="wrapper">
             <input
                 type="text"
                 autocomplete="off"
                 placeholder="Enter name"
-                maxlength="15"
+                maxlength="30"
                 v-model="searchPhrase"
             />
             <button class="button add-button" @click="searchFriends()">
@@ -13,12 +13,17 @@
             </button>
         </div>
     </section>
-    <table>
-        <tr v-for="user in results" :key="user">
-            <td class="name">{{ user.userName }}</td>
-            <td @click="addFriend(user)" class="actions">&#9989;</td>
-        </tr>
-    </table>
+
+    <section id="friends-list-friends-section">
+        <div class="wrapper">
+            <table>
+                <tr v-for="user in results" :key="user">
+                    <td class="name">{{ user.userName }}</td>
+                    <td @click="addFriend(user)" class="actions">&#9989;</td>
+                </tr>
+            </table>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
@@ -29,9 +34,10 @@ import { STORE } from "@/store";
 import { Vue } from "vue-class-component";
 
 export default class SearchFriends extends Vue {
+    searchPhrase = "";
+    renderResults = false;
     usersService: BaseService = new BaseService("Users");
     frindshipsService: BaseService = new BaseService("Friendships");
-    searchPhrase = "";
     results: IUser[] = [];
 
     async searchFriends() {
@@ -45,8 +51,6 @@ export default class SearchFriends extends Vue {
         if (response.data) {
             this.results = response.data;
             this.searchPhrase = "";
-        } else {
-            console.log("failed to get data");
         }
     }
 
@@ -62,41 +66,7 @@ export default class SearchFriends extends Vue {
 
         if (response.statusCode === 201) {
             this.results.splice(this.results.indexOf(user), 1);
-        } else {
-            console.log("failed to create friendship");
         }
     }
 }
 </script>
-
-<style lang="scss" scoped>
-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-    text-align: center;
-}
-
-tr {
-    .name {
-        width: 80%;
-    }
-
-    .actins {
-        width: 20%;
-    }
-}
-
-td,
-th {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>

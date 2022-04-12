@@ -1,5 +1,5 @@
 <template>
-    <section class="friends-list-section">
+    <section id="add-players-friends-list-section">
         <div class="wrapper">
             <table>
                 <tr>
@@ -37,7 +37,13 @@ export default class FriendsList extends Vue {
 
         if (response.data) {
             response.data.forEach((friendship) => {
-                this.friends.push(this.createPlayer(friendship));
+                this.friends.push({
+                    id: friendship.friendId,
+                    name: friendship.friendName,
+                    points: 0,
+                    canPlay: true,
+                    chosen: false,
+                });
             });
         }
     }
@@ -47,16 +53,6 @@ export default class FriendsList extends Vue {
             friend.chosen = true;
             STORE.commit(ADD_PLAYER, friend);
         }
-    }
-
-    createPlayer(friendship: IFriendship): IPlayer {
-        return {
-            id: friendship.friendId,
-            name: friendship.friendName,
-            points: 0,
-            canPlay: true,
-            chosen: false,
-        };
     }
 }
 </script>

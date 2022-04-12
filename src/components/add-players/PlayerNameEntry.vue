@@ -6,7 +6,7 @@
                 autocomplete="off"
                 placeholder="Enter name"
                 maxlength="30"
-                v-model="this.newPlayerName"
+                v-model="newPlayerName"
             />
             <button @click="addPlayer()" class="button add-button">Add</button>
         </div>

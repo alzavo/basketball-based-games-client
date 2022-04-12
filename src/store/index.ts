@@ -69,6 +69,7 @@ export const STORE = createStore({
             state.user.name = "";
             state.user.token = "";
             state.user.id = "";
+            state.players = [];
         },
 
         [Mutation.SET_GAMES](state, games: IGame[]) {

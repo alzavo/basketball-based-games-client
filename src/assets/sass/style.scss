@@ -1,26 +1,53 @@
-//////////// READY
+///////////////////////////////// READY
 // base
 @import "_base";
 @import "_shared-classes";
+
 // home view
 @import "./home/components/account-section";
 @import "./home/components/add-players-section";
 @import "./home/components/games-list-section";
+
 // rules view
 @import "./rules/rules";
+
 // add-player view
 @import "./add-players/components/players-list";
 @import "./add-players/components/player-name-entry-section";
 @import "./add-players/components/buttons-group-section";
 @import "./add-players/components/friends-list-section";
+
 // profile view
 @import "./acount/profile/profile-section";
+
 // stats view
 @import "./stats/stats-section";
+
+// friends view
+@import "./friends/friends-section";
+@import "./friends/components/friends-list-section";
+@import "./friends/components/search-friends-section";
+
+// games view
+@import "./games/actions";
+@import "./games/current-player-info";
+
+// game 33
+@import "./games/game-33/points-counter";
+
+// game -5
+@import "./games/game-minus-5/death-circle";
+@import "./games/game-minus-5/points-counter";
+
+// game 21
+@import "./games/game-21/points-counter";
+
+// game around the world
+@import "./games/game-around-the-world/points-counter";
+@import "./games/game-around-the-world/map";
 
 
 // fix it
 @import "./game-results/game-results";
-@import "./games/game-around-the-world";
 
 // add more

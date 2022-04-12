@@ -1,23 +1,20 @@
 <template>
-    <section>
+    <section id="friends-section">
         <div class="wrapper">
-            <table>
-                <tr>
-                    <td>
-                        <button @click="doSearch = false">Friends List</button>
-                    </td>
-                    <td>
-                        <button @click="doSearch = true">Add Friends</button>
-                    </td>
-                </tr>
-            </table>
+            <div class="nav">
+                <button @click="doSearch = false" class="button friends-button">
+                    Friends List
+                </button>
+                <button @click="doSearch = true" class="button add-button">
+                    Add Friends
+                </button>
+            </div>
+
             <FriendsList v-if="!doSearch" />
             <SearchFriends v-if="doSearch" />
-            <button
-                @click="this.$router.push('/profile')"
-                class="button back-button"
-            >
-                Back to profile
+
+            <button @click="goToProfileView()" class="button back-button">
+                Back
             </button>
         </div>
     </section>
@@ -27,8 +24,10 @@
 import FriendsList from "@/components/friends/FriendsList.vue";
 import SearchFriends from "@/components/friends/SearchFriends.vue";
 import { IFriendship } from "@/domain/IFriendship";
+import router from "@/router";
 import { BaseService } from "@/services/BaseService";
 import { Options, Vue } from "vue-class-component";
+import * as RouteName from "@/router/RoutesNames";
 
 @Options({
     components: {
@@ -48,26 +47,9 @@ export default class FriendsView extends Vue {
             this.friendships = response.data;
         }
     }
+
+    goToProfileView() {
+        router.push({ name: RouteName.PROFILE });
+    }
 }
 </script>
-
-<style lang="scss" scoped>
-.wrapper {
-    padding: 0.3rem;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-    text-align: center;
-}
-
-td {
-    padding: 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-radius: 1rem;
-}
-</style>

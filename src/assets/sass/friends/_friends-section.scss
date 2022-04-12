@@ -1,0 +1,20 @@
+#friends-section {
+    .wrapper {
+        padding: 0.3rem;
+        display: flex;
+        flex-direction: column;
+
+        .nav {
+            display: flex;
+            justify-content: space-evenly;
+
+            button {
+                padding: 0.5rem;
+            }
+        }
+
+        button {
+            margin: 0.5rem 0rem;
+        }
+    }
+}

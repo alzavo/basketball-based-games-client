@@ -1,79 +1,43 @@
 <template>
-    <section class="game-info">
-        <div class="player-info">
-            <div v-if="deathCircleCount > 0" class="container">
-                <div>Death circle</div>
-            </div>
-            <hr v-if="deathCircleCount > 0" />
-            <table>
-                <tr>
-                    <th class="player">Player</th>
-                    <th class="points">Points</th>
-                </tr>
-                <tr>
-                    <td>{{ this.currentPlayer.name }}</td>
-                    <td>{{ this.currentPlayer.points }}</td>
-                </tr>
-            </table>
+    <DeathCircle v-if="deathCircleCount > 0" />
+
+    <CurrentPlayerInfo
+        :playerName="currentPlayer.name"
+        :playerPoints="currentPlayer.points"
+    />
+
+    <section id="points-counter-game-minus-5-section">
+        <div class="wrapper">
+            <button class="button miss-button" @click="missBucket()">
+                Miss
+            </button>
+            <button class="button made-button" @click="makeBucket()">
+                Make
+            </button>
         </div>
     </section>
 
-    <section class="game-actions">
-        <div class="game-actions-choice">
-            <div class="additional">
-                <button
-                    v-on:click="
-                        this.$router.push({
-                            name: 'rules',
-                            params: { name: game.name },
-                        })
-                    "
-                    class="button rules-button"
-                >
-                    Rules
-                </button>
-                <button
-                    v-on:click="this.$router.push({ name: 'home' })"
-                    class="button back-button"
-                >
-                    Quit game
-                </button>
-                <button
-                    v-on:click="this.$router.push({ name: 'results' })"
-                    class="button results-button"
-                >
-                    Results
-                </button>
-            </div>
-            <hr />
-            <div class="shooting">
-                <button
-                    class="button miss-button"
-                    v-on:click="missBucket($event)"
-                >
-                    Miss
-                </button>
-                <button
-                    class="button made-button"
-                    v-on:click="madeBucket($event)"
-                >
-                    Made
-                </button>
-            </div>
-        </div>
-    </section>
+    <Actions />
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import { STORE } from "@/store";
 import router from "@/router";
-import { SET_GAME_STATUS_START } from "@/store/MutationTypes";
-import { IGame } from "@/interfaces/IGame";
-import { GameMinus5 } from "@/store/InitialState";
 import GameManager from "@/helpers/GameManager";
+import * as RouteName from "@/router/RoutesNames";
+import Actions from "@/components/games/Actions.vue";
+import CurrentPlayerInfo from "@/components/games/CurrentPlayerInfo.vue";
+import DeathCircle from "@/components/games/game-minus-5/DeathCircle.vue";
 
+@Options({
+    components: {
+        Actions,
+        CurrentPlayerInfo,
+        DeathCircle,
+    },
+})
 export default class GameMinus5View extends Vue {
     currentPlayer: IPlayer = {
         id: "",
@@ -82,53 +46,40 @@ export default class GameMinus5View extends Vue {
         canPlay: true,
         chosen: true,
     };
-    game: IGame = GameMinus5;
     deathCircleCount = 0;
-    manager = new GameManager();
+    gameManager = new GameManager();
 
-    beforeCreate() {
+    created() {
         if (STORE.state.players.length === 0) {
-            router.push({ name: "home" });
+            router.push({ name: RouteName.HOME });
         } else {
-            this.currentPlayer = STORE.state.players[0];
-            STORE.commit(SET_GAME_STATUS_START);
+            this.gameManager = new GameManager();
+            this.gameManager.startGame();
+            this.currentPlayer = this.gameManager.getCurrentPlayer();
         }
     }
 
-    madeBucket(event: Event): void {
-        event.preventDefault();
-
+    makeBucket(): void {
         this.deathCircleCount++;
-        if (this.deathCircleCount === this.manager.countActivePlayers()) {
+
+        if (this.deathCircleCount === this.gameManager.countActivePlayers()) {
             this.deathCircleCount = 0;
         }
 
-        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
+        this.currentPlayer = this.gameManager.getNewCurrentPlayer();
     }
 
-    missBucket(event: Event): void {
-        event.preventDefault();
-
+    missBucket(): void {
         if (this.deathCircleCount > 0) {
-            this.currentPlayer.points -= 1;
+            this.gameManager.addPointsToCurrentPlayer(-1);
 
             if (this.currentPlayer.points === -5) {
-                this.removePlayer();
+                this.gameManager.disableCurrentPlayer();
             }
         }
 
         this.deathCircleCount = 0;
-        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
-    }
-
-    removePlayer(): void {
-        this.currentPlayer.canPlay = false;
-
-        if (this.manager.countActivePlayers() === 1) {
-            this.manager.finishGame();
-        }
-
-        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
+        this.currentPlayer = this.gameManager.getNewCurrentPlayer();
     }
 }
 </script>

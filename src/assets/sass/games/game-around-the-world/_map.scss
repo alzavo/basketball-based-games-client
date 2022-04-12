@@ -1,0 +1,45 @@
+#map-game-around-the-world-section {
+    margin-bottom: 0.5rem;
+
+    .wrapper {
+        padding: 0.2rem;
+        display: flex;
+        flex-direction: column;
+
+        .image {
+            text-align: center;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .spot-wrapper {
+            padding: 0.2rem;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            border: 1px solid grey;
+            border-radius: 1rem;
+        }
+
+        .shots-types-wrapper {
+            margin-top: 0.2rem;
+            display: flex;
+            justify-content: space-evenly;
+            border: 1px solid grey;
+            border-radius: 1rem;
+
+            .shot-type {
+                padding: 0.2rem;
+                font-size: 1.2rem;
+                border-radius: 0.5rem;
+            }
+
+            .active {
+                background-color: yellow;
+                text-decoration: underline;
+            }
+        }
+    }
+}

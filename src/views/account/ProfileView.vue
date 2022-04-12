@@ -4,7 +4,6 @@
             <div class="greeting">
                 <h1>Welcome, {{ user.name }}!</h1>
             </div>
-            <hr />
             <div class="choices">
                 <button
                     @click="goToFriendsView()"

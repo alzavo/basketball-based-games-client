@@ -70,7 +70,7 @@ export const GameAroundTheWorld: IGame = {
 
 export const State: IAppState = {
     players: [],
-    games: [Game21, Game33, GameMinus5, GameAroundTheWorld],
+    games: [Game33, GameMinus5, Game21, GameAroundTheWorld],
     gameStatus: {
         end: false,
         start: false,

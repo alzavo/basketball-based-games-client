@@ -34,7 +34,7 @@
                 Back
             </button>
             <button
-                v-if="gameEnded"
+                v-if="gameEnded && this.$store.state.user.token.length > 0"
                 v-on:click="saveGame()"
                 class="button save-button"
             >
@@ -70,7 +70,7 @@ export default class GameResultsView extends Vue {
     gameStarted = false;
     players: IPlayer[] = [];
 
-    beforeCreate() {
+    created() {
         if (STORE.state.players.length === 0) {
             router.push({ name: "home" });
         } else {

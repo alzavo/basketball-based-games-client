@@ -1,73 +1,39 @@
 <template>
-    <section class="game-info">
-        <div class="player-info">
-            <table>
-                <tr>
-                    <th class="player">Player</th>
-                    <th class="points">Points</th>
-                </tr>
-                <tr>
-                    <td>{{ currentPlayer.name }}</td>
-                    <td>{{ currentPlayer.points }}</td>
-                </tr>
-            </table>
+    <CurrentPlayerInfo
+        :playerName="currentPlayer.name"
+        :playerPoints="currentPlayer.points"
+    />
+
+    <section id="points-counter-game-33-section">
+        <div class="wrapper">
+            <button @click="missBucket()" class="button miss-button">
+                Miss
+            </button>
+            <button @click="makeBucket()" class="button made-button">
+                Make
+            </button>
         </div>
     </section>
 
-    <section class="game-actions">
-        <div class="game-actions-choice">
-            <div class="additional">
-                <button
-                    v-on:click="
-                        this.$router.push({
-                            name: 'rules',
-                            params: { name: game.name },
-                        })
-                    "
-                    class="button rules-button"
-                >
-                    Rules
-                </button>
-                <button
-                    v-on:click="this.$router.push({ name: 'HOME' })"
-                    class="button back-button"
-                >
-                    Quit game
-                </button>
-                <button
-                    v-on:click="this.$router.push({ name: 'RESULTS' })"
-                    class="button results-button"
-                >
-                    Results
-                </button>
-            </div>
-            <hr />
-            <div class="shooting">
-                <button class="button miss-button" @click="changePlayers()">
-                    Miss
-                </button>
-                <button class="button made-button" @click="addPoints($event)">
-                    Made
-                </button>
-            </div>
-        </div>
-    </section>
+    <Actions />
 </template>
 
 <script lang="ts">
-import { IGame } from "@/interfaces/IGame";
 import { IPlayer } from "@/interfaces/IPlayer";
 import router from "@/router";
 import { STORE } from "@/store";
-import { Game33 } from "@/store/InitialState";
-import {
-    SET_GAME_STATUS_END,
-    SET_GAME_STATUS_START,
-} from "@/store/MutationTypes";
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
 import GameManager from "@/helpers/GameManager";
 import * as RouteName from "@/router/RoutesNames";
+import Actions from "@/components/games/Actions.vue";
+import CurrentPlayerInfo from "@/components/games/CurrentPlayerInfo.vue";
 
+@Options({
+    components: {
+        Actions,
+        CurrentPlayerInfo,
+    },
+})
 export default class Game33View extends Vue {
     currentPlayer: IPlayer = {
         id: "",
@@ -76,33 +42,32 @@ export default class Game33View extends Vue {
         canPlay: true,
         chosen: true,
     };
-    game: IGame = Game33;
-    manager = new GameManager();
+    gameManager = new GameManager();
 
-    beforeCreate() {
+    created() {
         if (STORE.state.players.length === 0) {
             router.push({ name: RouteName.HOME });
         } else {
-            this.currentPlayer = STORE.state.players[0];
-            STORE.commit(SET_GAME_STATUS_START);
+            this.gameManager = new GameManager();
+            this.gameManager.startGame();
+            this.currentPlayer = this.gameManager.getCurrentPlayer();
         }
     }
 
-    addPoints(event: Event): void {
-        event.preventDefault();
+    makeBucket() {
         if (this.currentPlayer.points < 30) {
-            this.currentPlayer.points += 3;
-        } else if (this.currentPlayer.points >= 30) {
-            this.currentPlayer.points += 1;
+            this.gameManager.addPointsToCurrentPlayer(3);
+        } else if (this.currentPlayer.points < 33) {
+            this.gameManager.addPointsToCurrentPlayer(1);
+
             if (this.currentPlayer.points === 33) {
-                STORE.commit(SET_GAME_STATUS_END);
-                router.push({ name: RouteName.RESULTS });
+                this.gameManager.finishGame();
             }
         }
     }
 
-    changePlayers(): void {
-        this.currentPlayer = this.manager.getNextPlayer(this.currentPlayer);
+    missBucket() {
+        this.currentPlayer = this.gameManager.getNewCurrentPlayer();
     }
 }
 </script>

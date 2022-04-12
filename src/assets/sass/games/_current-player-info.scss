@@ -1,0 +1,30 @@
+#current-player-info-games-section {
+    .wrapper {
+        padding: 0.5rem;
+
+        table {
+            font-size: 1.3rem;
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            text-align: center;
+
+            th {
+                width: 35%;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                padding: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        }
+    }
+}
