@@ -28,6 +28,7 @@ import Actions from "@/components/game-results/Actions.vue";
 export default class GameResultsView extends Vue {
     players: IPlayer[] = [];
     winnerName = "";
+    gameEnded = STORE.state.gameStatus.end;
 
     created() {
         if (STORE.state.players.length === 0) {
