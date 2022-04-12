@@ -6,7 +6,7 @@
                     @click="showActions = !showActions"
                     class="button settings-button"
                 >
-                    &#8691;
+                    Actions
                 </button>
             </div>
         </template>
@@ -17,7 +17,7 @@
                     @click="showActions = !showActions"
                     class="button settings-button"
                 >
-                    &#8691;
+                    Close
                 </button>
                 <div class="actions">
                     <button
