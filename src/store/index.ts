@@ -32,7 +32,6 @@ export const STORE = createStore({
         },
 
         [Mutation.REMOVE_PLAYER](state, player: IPlayer) {
-            player.chosen = false;
             state.players.splice(state.players.indexOf(player), 1);
         },
 

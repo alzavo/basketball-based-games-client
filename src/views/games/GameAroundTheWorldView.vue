@@ -49,7 +49,6 @@ export default class GameAroundTheWorldView extends Vue {
         name: "",
         points: 0,
         canPlay: true,
-        chosen: true,
     };
     game: IGame = GameAroundTheWorld;
     missCounter = 0;

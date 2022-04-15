@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { IFriendshipCreate } from "@/domain/IFriendship";
+import { IFriendship } from "@/domain/IFriendship";
 import { IUser } from "@/interfaces/IUser";
 import { BaseService } from "@/services/BaseService";
 import { STORE } from "@/store";
@@ -44,7 +44,7 @@ export default class SearchFriends extends Vue {
         if (this.searchPhrase.length === 0) return;
 
         const response = await this.usersService.getAll<IUser>(
-            "GetAllByName",
+            "GetByPhrase",
             this.searchPhrase
         );
 
@@ -55,16 +55,19 @@ export default class SearchFriends extends Vue {
     }
 
     async addFriend(user: IUser) {
-        const newFriend: IFriendshipCreate = {
+        const newFriend: IFriendship = {
+            id: "0",
             userId: STORE.state.user.id,
+            userName: "",
             friendId: user.id,
+            friendName: "",
         };
 
-        const response = await this.frindshipsService.create<IFriendshipCreate>(
+        const response = await this.frindshipsService.create<IFriendship>(
             newFriend
         );
 
-        if (response.statusCode === 201) {
+        if (response.statusCode === 200) {
             this.results.splice(this.results.indexOf(user), 1);
         }
     }

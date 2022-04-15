@@ -74,10 +74,13 @@ export default class Actions extends Vue {
         for (let i = 0; i < this.players.length; i++) {
             let player = this.players[i];
             playedGame.playedGames.push({
+                id: "0",
                 place: i + 1,
                 points: player.points,
                 userId: player.id,
+                userName: "",
                 gameId: gameId,
+                gameName: "",
             });
         }
 
@@ -86,10 +89,8 @@ export default class Actions extends Vue {
             "Post"
         );
 
-        if (response.statusCode === 201) {
+        if (response.statusCode === 200) {
             this.doAfterGameActions();
-        } else {
-            console.log("failed to create");
         }
     }
 }

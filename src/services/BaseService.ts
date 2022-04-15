@@ -122,7 +122,7 @@ export class BaseService {
 
     async create<TEntity>(
         dto: TEntity,
-        urlAction?: string,
+        urlAction = "Post",
         urlParameter?: string
     ): Promise<IFetchResponse<TEntity>> {
         let url = this.apiEndpointUrl;
@@ -165,7 +165,7 @@ export class BaseService {
 
     async delete(
         id: string,
-        urlAction?: string,
+        urlAction = "Delete",
         urlParameter?: string
     ): Promise<IFetchResponse<unknown>> {
         let url = this.apiEndpointUrl;

@@ -7,18 +7,22 @@
     </section>
 
     <section id="user-credentials-entry-account-section">
-        <div class="wrapper-inputs">
-            <input
-                v-model="userName"
-                type="text"
-                placeholder="Enter user name"
-            />
-            <input
-                v-model="password"
-                type="password"
-                placeholder="Enter password"
-            />
-        </div>
+        <form>
+            <div class="wrapper-inputs">
+                <input
+                    v-model="userName"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Enter user name"
+                />
+                <input
+                    v-model="password"
+                    type="password"
+                    autocomplete="off"
+                    placeholder="Enter password"
+                />
+            </div>
+        </form>
         <div class="wrapper-buttons">
             <button @click="sendData($event)" class="button log-in-button">
                 Submit

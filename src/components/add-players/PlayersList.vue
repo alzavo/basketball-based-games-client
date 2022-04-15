@@ -48,7 +48,6 @@ export default class PlayersList extends Vue {
             name: STORE.state.user.name,
             points: 0,
             canPlay: true,
-            chosen: true,
         };
 
         if (STORE.state.user.token.length > 0) {

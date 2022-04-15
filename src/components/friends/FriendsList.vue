@@ -23,7 +23,7 @@ export default class FriendsListWithRemove extends Vue {
     friendships: IFriendship[] = [];
 
     async created() {
-        const response = await this.service.getAll<IFriendship>();
+        const response = await this.service.getAll<IFriendship>("Get");
 
         if (response.data) {
             this.friendships = response.data;

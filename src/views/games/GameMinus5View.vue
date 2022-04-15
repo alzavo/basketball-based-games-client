@@ -44,7 +44,6 @@ export default class GameMinus5View extends Vue {
         name: "",
         points: 0,
         canPlay: true,
-        chosen: true,
     };
     deathCircleCount = 0;
     gameManager = new GameManager();

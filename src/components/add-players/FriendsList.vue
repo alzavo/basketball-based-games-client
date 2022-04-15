@@ -8,7 +8,7 @@
             </table>
             <table>
                 <template v-for="friend in friends" :key="friend">
-                    <tr v-if="!friend.chosen">
+                    <tr v-if="!checkIfFriendAlreadyAdded(friend)">
                         <td class="name">{{ friend.name }}</td>
                         <td @click="addPlayer(friend)" class="actions">
                             &#9989;
@@ -31,9 +31,12 @@ import { Vue } from "vue-class-component";
 export default class FriendsList extends Vue {
     service: BaseService = new BaseService("Friendships");
     friends: IPlayer[] = [];
+    players: IPlayer[] = [];
 
     async created() {
-        const response = await this.service.getAll<IFriendship>();
+        this.players = STORE.state.players;
+
+        const response = await this.service.getAll<IFriendship>("Get");
 
         if (response.data) {
             response.data.forEach((friendship) => {
@@ -42,17 +45,21 @@ export default class FriendsList extends Vue {
                     name: friendship.friendName,
                     points: 0,
                     canPlay: true,
-                    chosen: false,
                 });
             });
         }
     }
 
-    addPlayer(friend: IPlayer) {
-        if (!friend.chosen) {
-            friend.chosen = true;
-            STORE.commit(ADD_PLAYER, friend);
+    checkIfFriendAlreadyAdded(friend: IPlayer): boolean {
+        if (this.players.some((player) => player.id === friend.id)) {
+            return true;
+        } else {
+            return false;
         }
+    }
+
+    addPlayer(friend: IPlayer) {
+        STORE.commit(ADD_PLAYER, friend);
     }
 }
 </script>

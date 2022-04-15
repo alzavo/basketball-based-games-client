@@ -40,7 +40,6 @@ export default class Game33View extends Vue {
         name: "",
         points: 0,
         canPlay: true,
-        chosen: true,
     };
     gameManager = new GameManager();
 
