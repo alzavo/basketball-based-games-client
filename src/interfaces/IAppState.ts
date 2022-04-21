@@ -1,4 +1,5 @@
 import { IFriendship } from "@/domain/IFriendship";
+import GameManager from "@/helpers/GameManager";
 import { IGame } from "./IGame";
 import { IGameStatus } from "./IGameStatus";
 import { IPlayer } from "./IPlayer";
@@ -9,4 +10,5 @@ export interface IAppState {
     games: IGame[];
     gameStatus: IGameStatus;
     user: IUser;
+    gameManager: GameManager;
 }

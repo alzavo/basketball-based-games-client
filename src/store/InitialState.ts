@@ -1,3 +1,4 @@
+import GameManager from "@/helpers/GameManager";
 import { IAppState } from "@/interfaces/IAppState";
 import { IGame } from "@/interfaces/IGame";
 import * as RouteName from "@/router/RoutesNames";
@@ -80,4 +81,5 @@ export const State: IAppState = {
         token: "",
         id: "",
     },
+    gameManager: new GameManager(),
 };

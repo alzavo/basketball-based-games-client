@@ -6,9 +6,16 @@ import { STORE } from "../store";
 
 export default class GameManager {
     private currentPlayer: IPlayer;
+    private initialFirstPlayer: IPlayer;
 
     constructor() {
-        this.currentPlayer = STORE.state.players[0];
+        this.currentPlayer = { id: "", name: "", points: 0, canPlay: true };
+        this.initialFirstPlayer = {
+            id: "",
+            name: "",
+            points: 0,
+            canPlay: true,
+        };
     }
 
     disableCurrentPlayer() {
@@ -64,11 +71,15 @@ export default class GameManager {
     }
 
     finishGame(): void {
+        this.currentPlayer = STORE.state.players[0];
+        this.initialFirstPlayer = STORE.state.players[0];
         STORE.commit(Mutation.SET_GAME_STATUS_END);
         router.push({ name: RouteName.RESULTS });
     }
 
     startGame(): void {
+        this.currentPlayer = STORE.state.players[0];
+        this.initialFirstPlayer = STORE.state.players[0];
         STORE.commit(Mutation.SET_GAME_STATUS_START);
     }
 }

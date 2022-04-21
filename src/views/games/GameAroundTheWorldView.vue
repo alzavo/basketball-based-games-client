@@ -28,8 +28,6 @@ import { Options, Vue } from "vue-class-component";
 import { IPlayer } from "@/interfaces/IPlayer";
 import { STORE } from "@/store";
 import router from "@/router";
-import { IGame } from "@/interfaces/IGame";
-import { GameAroundTheWorld } from "@/store/InitialState";
 import GameManager from "@/helpers/GameManager";
 import * as RouteName from "@/router/RoutesNames";
 import Actions from "@/components/games/Actions.vue";
@@ -50,7 +48,6 @@ export default class GameAroundTheWorldView extends Vue {
         points: 0,
         canPlay: true,
     };
-    game: IGame = GameAroundTheWorld;
     missCounter = 0;
     gameManager = new GameManager();
 
@@ -63,8 +60,10 @@ export default class GameAroundTheWorldView extends Vue {
                     player.points = 1;
                 });
             }
-            this.gameManager = new GameManager();
-            this.gameManager.startGame();
+            this.gameManager = STORE.state.gameManager;
+            if (!STORE.state.gameStatus.start) {
+                this.gameManager.startGame();
+            }
             this.currentPlayer = this.gameManager.getCurrentPlayer();
         }
     }

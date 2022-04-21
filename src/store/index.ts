@@ -14,15 +14,18 @@ export const STORE = createStore({
 
     getters: {
         getPlayersOrderedByPoints: (state) => () => {
-            return state.players.sort(function (player1, player2) {
-                if (player1.points < player2.points) {
-                    return 1;
-                }
-                if (player1.points > player2.points) {
-                    return -1;
-                }
-                return 0;
-            });
+            const sortedPlayers = state.players
+                .concat()
+                .sort(function (player1, player2) {
+                    if (player1.points < player2.points) {
+                        return 1;
+                    }
+                    if (player1.points > player2.points) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            return sortedPlayers;
         },
     },
 

@@ -47,8 +47,10 @@ export default class Game33View extends Vue {
         if (STORE.state.players.length === 0) {
             router.push({ name: RouteName.HOME });
         } else {
-            this.gameManager = new GameManager();
-            this.gameManager.startGame();
+            this.gameManager = STORE.state.gameManager;
+            if (!STORE.state.gameStatus.start) {
+                this.gameManager.startGame();
+            }
             this.currentPlayer = this.gameManager.getCurrentPlayer();
         }
     }
